@@ -1,0 +1,3 @@
+# Epicodus Exchange: Q&A forum for Epicodus students
+
+Created by [Julie Steele](http://juliesteele.site44.com/).
