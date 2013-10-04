@@ -4,6 +4,7 @@ describe Answer do
   it { should belong_to :post }
   it { should belong_to :user }
   it { should have_many :votes }
+  it { should have_many :comments }
   it { should validate_presence_of :content }
   it { should ensure_length_of(:content).is_at_most(1000) }
 
