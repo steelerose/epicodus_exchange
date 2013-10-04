@@ -1,0 +1,4 @@
+<%= form_for(@post) do |f| %>
+  <%= f.hidden_field :answered, value: true %>
+  <%= f.submit 'Issue resolved', class: 'button tiny' %>
+<% end %>

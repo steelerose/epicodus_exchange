@@ -1,0 +1,26 @@
+<% provide(:title, 'Answer post') %>
+
+<div class="row">
+  <h4 class="center">Answering: <%= @post.name %></h4>
+</div>
+
+<div class="row">
+  <div class="large-offset-2 large-8 small-12">
+    <p><%= @post.content %></p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-8 large-offset-2 small-12">
+    <%= form_for(@answer) do |f| %>
+      <%= render 'shared/error_messages', object: @answer %>
+
+      <%= f.label :content, 'Answer:' %>
+      <%= f.text_area :content, class: 'text-area' %>
+
+      <%= f.hidden_field :post_id, value: @post.id %>
+
+      <%= f.submit 'Submit', class: 'button small' %>
+    <% end %>
+  </div>
+</div>

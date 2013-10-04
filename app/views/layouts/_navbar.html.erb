@@ -1,0 +1,23 @@
+<nav class="top-bar">
+  <ul class="title-area">
+    <li class="name">
+      <h1><%= link_to 'Epicodus Exchange', root_path %></h1>
+    </li>
+    <li class="toggle-topbar menu-icon"><a><span>Menu</span></a></li>
+  </ul>
+  <section class="top-bar-section">
+    <ul class="right">
+      <li class="divider"></li>
+      <% #if signed_in? %>
+        <li class="active"><%= link_to 'Add post', new_post_path %></li>
+        <li class="divider"></li>
+        <li class="active"><%= link_to 'Log out', '#', method: 'destroy' %></li>
+      <% #else %>
+        <li class="active"><%= link_to 'Sign up', '#' %></li>
+        <li class="divider"></li>
+        <li class="active"><%= link_to 'Log in', '#' %></li>
+      <% #end %>
+      <li class="divider"></li>
+    </ul>
+  </section>
+</nav>

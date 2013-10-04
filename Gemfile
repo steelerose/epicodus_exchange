@@ -12,8 +12,8 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
-gem 'bootstrap-sass'
-gem 'bootstrap-will_paginate'
+gem 'zurb-foundation'
+gem 'devise'
 
 group :development, :test do
   gem 'rspec-rails'

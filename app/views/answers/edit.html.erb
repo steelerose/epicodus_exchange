@@ -1,0 +1,26 @@
+<% provide(:title, 'Edit answer') %>
+
+<div class="row">
+  <h4 class="center subheader">Answering: <%= @answer.post.name %></h4>
+</div>
+
+<div class="row">
+  <div class="large-offset-2 large-8 small-12">
+    <p><%= @answer.post.content %></p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-6 large-offset-3 small-12">
+    <%= form_for(@answer) do |f| %>
+      <%= render 'shared/error_messages', object: @answer %>
+
+      <%= f.label :content, 'Answer:' %>
+      <%= f.text_area :content, class: 'text-area' %>
+
+      <%= f.hidden_field :answer_id, value: @answer.id %>
+
+      <%= f.submit 'Save changes', class: 'button small' %>
+    <% end %>
+  </div>
+</div>

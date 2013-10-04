@@ -1,0 +1,21 @@
+<% provide(:title, 'Add post') %>
+
+<div class="row">
+  <h1 class="center">Add Post</h1>
+</div>
+
+<div class="row">
+  <div class="large-6 large-offset-3 small-12">
+    <%= form_for(@post) do |f| %>
+      <%= render 'shared/error_messages', object: @post %>
+
+      <%= f.label :name, 'Post title:' %>
+      <%= f.text_field :name %>
+
+      <%= f.label :content, 'Post content:' %>
+      <%= f.text_area :content, class: 'text-area' %>
+
+      <%= f.submit 'Submit', class: 'button small' %>
+    <% end %>
+  </div>
+</div>
