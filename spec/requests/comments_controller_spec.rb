@@ -3,17 +3,22 @@ require 'spec_helper'
 describe CommentsController do
   subject { page }
 
+  before do
+    @user = create(:user)
+    visit '/users/sign_in'
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: @user.password
+    click_button 'Sign in'
+    @post = create(:post, user_id: @user.id)
+    visit post_path(@post)
+    click_link 'Answer post'
+    fill_in 'Answer:', with: 'Help is on the way!'
+    click_button 'Submit'
+    click_link 'Reply'
+  end
+
   # NEW PAGE
   describe 'New page' do
-    before do
-      @post = create(:post)
-      visit post_path(@post)
-      click_link 'Answer post'
-      fill_in 'Answer:', with: 'Help is on the way!'
-      click_button 'Submit'
-      click_link 'Reply'
-    end
-
     describe 'with invalid information' do
       it 'should not redirect to the post\'s main page' do
         click_button 'Submit'
@@ -49,18 +54,17 @@ describe CommentsController do
       it 'should add an answer to the database' do
         expect { click_button 'Submit' }.to change(Comment, :count).by(1)
       end
+
+      it 'should have a user' do
+        click_button 'Submit'
+        @post.answers.first.comments.first.user.should_not be_nil
+      end
     end
   end
 
   # EDIT PAGE
   describe 'Edit page' do
     before do
-      @post = create(:post)
-      visit post_path(@post)
-      click_link 'Answer post'
-      fill_in 'Answer:', with: 'Help is on the way!'
-      click_button 'Submit'
-      click_link 'Reply'
       fill_in 'Comment:', with: 'When? I\'m desperate!'
       click_button 'Submit'
       click_link 'edit comment'

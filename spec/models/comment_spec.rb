@@ -5,6 +5,7 @@ describe Comment do
   it { should belong_to :user }
   it { should validate_presence_of :content }
   it { should ensure_length_of(:content).is_at_most(500) }
+  it { should validate_presence_of :user_id }
 
   it 'should sort by date created' do
     @post = create(:post)

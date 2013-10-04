@@ -1,0 +1,28 @@
+<% provide(:title, 'Profile') %>
+
+<div class="row">
+  <div class="large-4 small-4 columns">
+    <h3><%= @user.first_name %> <%= @user.last_name %></h3>
+    <h5 class="subheader"><%= @user.karma %> karma</h5>
+    <h6 class="subheader">GitHub: <%= link_to @user.github, "https://github.com/#{@user.github}" %></h6>
+    <h6 class="subheader">Website: <%= link_to @user.website, @user.website %></h6>
+  </div>
+  <div class="large-offset-1 small-offset-1 large-7 small-7 columns">
+    <h4>Posts</h4>
+    <% if @user.posts.any? %>
+      <ul class="links no-bullet">
+        <% @user.posts.each do |post| %>
+          <li>
+            <span class="post-listing-title"><%= link_to post.name, post %></span><%= ' | (answered)' if post.answered? %>
+            <p>
+              <span class="post-listing-details">
+                <%= post.created_at.strftime("%d %b '%y") %>
+                 | <%= pluralize(post.votes.count, "vote") %>
+               </span>
+            </p>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>

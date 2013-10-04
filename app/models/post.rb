@@ -4,6 +4,8 @@ class Post < ActiveRecord::Base
   has_many :votes, as: :votable
   validates :content, presence: true, length: { maximum: 1000 }
   validates :name, presence: true, length: { maximum: 100 }
+  validates :user_id, presence: true
+  default_scope { order('created_at DESC') }
 
   def Post.unanswered
     Post.where(answered: false).sort { |x,y| y.points <=> x.points }

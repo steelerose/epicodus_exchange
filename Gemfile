@@ -14,6 +14,7 @@ gem 'turbolinks'
 gem 'jbuilder'
 gem 'zurb-foundation'
 gem 'devise'
+gem 'cancan'
 
 group :development, :test do
   gem 'rspec-rails'

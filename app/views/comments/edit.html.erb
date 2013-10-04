@@ -1,0 +1,26 @@
+<% provide(:title, 'Edit comment') %>
+
+<div class="row">
+  <h4 class="center subheader">Answering: <%= @comment.answer.post.name %></h4>
+</div>
+
+<div class="row">
+  <div class="large-offset-2 large-8 small-12">
+    <p><%= @comment.answer.content %></p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-6 large-offset-3 small-12">
+    <%= form_for(@comment) do |f| %>
+      <%= render 'shared/error_messages', object: @comment %>
+
+      <%= f.label :content, 'Comment:' %>
+      <%= f.text_area :content, class: 'text-area' %>
+
+      <%= f.hidden_field :comment_id, value: @comment.id %>
+
+      <%= f.submit 'Save changes', class: 'button small' %>
+    <% end %>
+  </div>
+</div>

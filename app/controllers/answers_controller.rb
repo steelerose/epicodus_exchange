@@ -7,6 +7,7 @@ class AnswersController < ApplicationController
   def create
     @post = Post.find(params[:answer][:post_id])
     @answer = @post.answers.new(answer_params)
+    @answer.user = current_user
     if @answer.save
       flash[:success] = 'Answer added'
       redirect_to post_path(@post)

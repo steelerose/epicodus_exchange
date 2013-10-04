@@ -3,7 +3,7 @@ class VotesController < ApplicationController
     object = Object.const_get(params[:sym]).find(params[:object])
     vote = object.votes.new
     if !vote.save
-      flash[:alert] = '' 
+      flash[:alert] = "You have already voted on this #{object.class.to_s.downcase}."
     end
     if object.class.to_s != 'Post'
       redirect_to object.post

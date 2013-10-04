@@ -1,0 +1,29 @@
+<% if @post.answers.any? %>
+  <section class="links">
+    <div class="row">
+      <div class="large-offset-1 large-10 small-12">
+        <ul class="plain-ul">
+          <% post.answers.ranked.each do |answer| %>
+            <li>
+              <%= answer.content %>
+              <p>
+                <%= answer.created_at.strftime("%d %b '%y") %>
+                 | <%= pluralize(answer.votes.count, "vote") %>
+                 | <%= link_to 'upvote', votes_path(object: answer, sym: :Answer), method: :post %>
+              </p>
+              <p>
+                <%= link_to 'eventually will reveal new comment form', class: 'new-comment' %>
+                 | <%= link_to 'edit answer', edit_answer_path(answer) %>
+                 | <%= link_to 'delete answer', answer_path(answer_id: answer.id), method: :delete, data: { confirm: 'Delete answer?' } %>
+              </p>
+              <%= render 'comments', answer: answer %>
+              <div class="new-comment-form">
+                <%= link_to 'Reply', new_comment_path(answer: answer) %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </section>
+<% end %>

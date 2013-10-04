@@ -12,13 +12,14 @@ describe Post do
   it { should ensure_length_of(:content).is_at_most(1000) }
   it { should validate_presence_of :name }
   it { should ensure_length_of(:name).is_at_most(100) }
+  it { should validate_presence_of :user_id }
 
   describe 'custom \'all\' methods' do
     before do
-      @post1 = create(:post)
-      @post2 = create(:post, answered: 't')
-      @post3 = create(:post)
-      @post4 = create(:post, answered: 't')
+      @post1 = create(:post, created_at: 100.days.ago)
+      @post2 = create(:post, created_at: 10.days.ago, answered: 't')
+      @post3 = create(:post, created_at: 50.days.ago)
+      @post4 = create(:post, created_at: 70.days.ago, answered: 't')
       @post1.votes.create
       @post4.votes.create
     end
@@ -28,14 +29,23 @@ describe Post do
     end
 
     it 'should return all answered posts, ranked by points' do
-      Post.answered.should eq [@post4, @post2]
+      Post.all.should eq [@post2, @post3, @post4, @post1]
     end
 
     it 'should sort by total points' do
-      @post1.votes.create
-      3.times { @post3.votes.create }
-      4.times { @post2.votes.create }
+      @post1.votes.create(user_id: 1)
+      @post3.votes.create(user_id: 1)
+      @post3.votes.create(user_id: 2)
+      @post3.votes.create(user_id: 3)
+      @post2.votes.create(user_id: 1)
+      @post2.votes.create(user_id: 2)
+      @post2.votes.create(user_id: 3)
+      @post2.votes.create(user_id: 4)
       Post.by_points.should eq [@post2, @post3, @post1, @post4]
+    end
+
+    it 'should sort by most recent (default .all method)' do
+      Post.all.should eq [@post2, @post3, @post4, @post1]
     end
   end
 
@@ -46,7 +56,7 @@ describe Post do
 
   it 'should have total points equal to points plus number of votes' do
     @post = create(:post)
-    @post.votes.create
+    @post.votes.create(user_id: 1)
     @post.points.should eq 61
   end
 
@@ -57,7 +67,11 @@ describe Post do
 
   it 'should stop losing points after 30 minutes' do
     @post = create(:post, created_at: 1.hour.ago)
-    5.times { @post.votes.create }
+    @post.votes.create(user_id: 1)
+    @post.votes.create(user_id: 2)
+    @post.votes.create(user_id: 3)
+    @post.votes.create(user_id: 4)
+    @post.votes.create(user_id: 5)
     @post.points.should eq 5
   end
 end

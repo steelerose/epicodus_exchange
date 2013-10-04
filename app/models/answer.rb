@@ -4,6 +4,7 @@ class Answer < ActiveRecord::Base
   has_many :comments
   has_many :votes, as: :votable
   validates :content, presence: true, length: { maximum: 1000 }
+  validates :user_id, presence: true
 
   def points
     votes.count

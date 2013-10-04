@@ -3,7 +3,12 @@
 <div class="row">
   <h3 class="center"><%= @post.name %></h3>
   <h6 class="center subheader">
-    Posted: <%= @post.created_at.strftime("%d %b '%y") %> | Last edited: <%= @post.updated_at.strftime("%d %b '%y") %> | <%= link_to 'upvote', votes_path(object: @post, sym: :Post), method: :post %> | <%= link_to 'edit post', edit_post_path(@post) %> | <%= link_to 'delete post', @post, method: :delete, data: { confirm: 'Delete post?' } %>
+    Posted: <%= @post.created_at.strftime("%d %b '%y") %>
+     | Last edited: <%= @post.updated_at.strftime("%d %b '%y") %>
+     | <%= pluralize(@post.votes.count, "vote") %>
+     | <%= link_to 'upvote', votes_path(object: @post, sym: :Post), method: :post %>
+     | <%= link_to 'edit post', edit_post_path(@post) %>
+     | <%= link_to 'delete post', @post, method: :delete, data: { confirm: 'Delete post?' } %>
   </h6>
   <h6 class="center subheader">
     <%= render 'resolved' %>
@@ -18,30 +23,4 @@
   </h6>
 </div>
 
-<% if @post.answers.any? %>
-  <section class="links">
-    <div class="row">
-      <div class="large offset-2 large-8 small-12">
-        <ul>
-          <%= @post.answers.ranked.each do |answer| %>
-            <li>
-              <%= answer.content %>
-              <p><%= answer.created_at.strftime("%d %b '%y") %> | <%= pluralize(answer.votes.count, "vote") %> | <%= link_to 'upvote', votes_path(object: answer, sym: :Answer), method: :post %> | <%= link_to 'edit answer', edit_answer_path(answer) %> | <%= link_to 'delete answer', answer_path(answer_id: answer.id), method: :delete, data: { confirm: 'Delete answer?' } %></p>
-              <% if answer.comments.any? %>
-                <ul>
-                  <%= answer.comments.each do |comment| %>
-                    <li>
-                      <%= comment.content %>
-                      <p><%= comment.created_at.strftime("%d %b '%y") %> | <%= link_to 'edit comment', edit_comment_path(comment) %> | <%= link_to 'delete comment', comment_path(comment_id: comment.id), method: :delete, data: { confirm: 'Delete comment?' } %></p>
-                    </li>
-                  <% end %>
-                  <%= render partial: '/comments/new_comment.html.erb', answer_id: answer.id %>
-                </ul>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  </section>
-<% end %>
+<%= render 'answers', post: @post %>

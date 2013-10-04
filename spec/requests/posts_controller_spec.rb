@@ -3,6 +3,14 @@ require 'spec_helper'
 describe PostsController do
   subject { page }
 
+  before do
+    @user = create(:user)
+    visit '/users/sign_in'
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: @user.password
+    click_button 'Sign in'
+  end
+
   # INDEX / ROOT PAGE
   describe 'Index page / root path' do
     before do
@@ -58,14 +66,20 @@ describe PostsController do
       it 'should add a post to the database' do
         expect { click_button 'Submit' }.to change(Post, :count).by(1)
       end
+
+      it 'should have a user' do
+        click_button 'Submit'
+        Post.all.first.user.should_not be_nil
+      end
     end
   end
 
   # SHOW PAGE
   describe 'Show page' do
     before do
-      @post = create(:post)
+      @post = create(:post, user_id: 1)
       @post.answers.create(content: 'I can help!', user_id: 1)
+      @post.answers.first.comments.create(content: 'No you can\'t', user_id: 1)
       visit root_path
       click_link @post.name
     end
@@ -80,7 +94,7 @@ describe PostsController do
 
     it 'should allow you to mark a post as \'answered\'' do
       click_button 'Issue resolved'
-      @post.answered.should be_true
+      @post.answered?.should be_true
     end
 
     it 'should allow you to delete an answer' do
@@ -91,6 +105,10 @@ describe PostsController do
       find(:xpath, "(//a[text()='upvote'])[2]").click
       @post.answers.first.reload
       @post.answers.first.votes.count.should eq 1
+    end
+
+    it 'should allow you to delete a comment' do
+      expect { click_link 'delete comment' }.to change(Comment, :count).by(-1)
     end
   end
 

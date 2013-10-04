@@ -3,14 +3,19 @@ require 'spec_helper'
 describe AnswersController do
   subject { page }
 
+  before do
+    @post = create(:post, user_id: 1)
+    @user = create(:user)
+    visit '/users/sign_in'
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: @user.password
+    click_button 'Sign in'
+    visit post_path(@post)
+    click_link 'Answer post'
+  end
+
   # NEW PAGE
   describe 'New page' do
-    before do
-      @post = create(:post)
-      visit post_path(@post)
-      click_link 'Answer post'
-    end
-
     describe 'with invalid information' do
       it 'should not redirect to the post\'s main page' do
         click_button 'Submit'
@@ -46,15 +51,17 @@ describe AnswersController do
       it 'should add an answer to the database' do
         expect { click_button 'Submit' }.to change(Answer, :count).by(1)
       end
+
+      it 'should have a user' do
+        click_button 'Submit'
+        @post.answers.first.user.should_not be_nil
+      end
     end
   end
 
   # EDIT PAGE
   describe 'Edit page' do
     before do
-      @post = create(:post)
-      visit post_path(@post)
-      click_link 'Answer post'
       fill_in 'Answer:', with: 'Help is on the way!'
       click_button 'Submit'
       click_link 'edit answer'

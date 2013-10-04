@@ -1,0 +1,37 @@
+<% provide(:title, 'Sign up') %>
+<div class='row'>
+  <h2 class="center">Sign Up</h2>
+</div>
+
+<div class="row">
+  <div class="large-6 large-offset-3 small-12 columns">
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
+
+      <div><%= f.label :first_name, 'First Name' %><br />
+      <%= f.text_field :first_name, :autofocus => true %></div>
+
+      <div><%= f.label :last_name, 'Last Name' %><br />
+      <%= f.text_field :last_name %></div>
+
+      <div><%= f.label :github, 'GitHub Username' %> <i>(optional)</i><br />
+      <%= f.text_field :github %></div>
+
+      <div><%= f.label :website %> <i>(optional)</i><br />
+      <%= f.text_field :website %></div>
+
+      <div><%= f.label :email %><br />
+      <%= f.email_field :email %></div>
+
+      <div><%= f.label :password %> <i>(must be at least 8 characters)</i><br />
+      <%= f.password_field :password %></div>
+
+      <div><%= f.label :password_confirmation, 'Confirm Password' %><br />
+      <%= f.password_field :password_confirmation %></div>
+
+      <div><%= f.submit "Sign up", class: 'button small' %></div>
+    <% end %>
+  </div>
+</div>
+
+<%= render "devise/shared/links" %>
