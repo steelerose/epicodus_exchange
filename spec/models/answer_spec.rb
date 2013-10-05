@@ -14,8 +14,9 @@ describe Answer do
     @answer1 = create(:answer, post_id: @post.id )
     @answer2 = create(:answer, post_id: @post.id )
     @answer3 = create(:answer, post_id: @post.id )
-    @answer3.votes.create
-    2.times { @answer1.votes.create }
+    @answer3.votes.create(user_id: 1)
+    @answer1.votes.create(user_id: 1)
+    @answer1.votes.create(user_id: 2)
     Answer.ranked.should eq [@answer1, @answer3, @answer2]
   end
 end

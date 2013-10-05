@@ -20,8 +20,8 @@ describe Post do
       @post2 = create(:post, created_at: 10.days.ago, answered: 't')
       @post3 = create(:post, created_at: 50.days.ago)
       @post4 = create(:post, created_at: 70.days.ago, answered: 't')
-      @post1.votes.create
-      @post4.votes.create
+      @post1.votes.create(user_id: 1)
+      @post4.votes.create(user_id: 1)
     end
 
     it 'should return all unanswered posts, ranked by points' do
@@ -34,14 +34,15 @@ describe Post do
 
     it 'should sort by total points' do
       @post1.votes.create(user_id: 1)
+      @post1.votes.create(user_id: 2)
+      @post1.votes.create(user_id: 3)
       @post3.votes.create(user_id: 1)
       @post3.votes.create(user_id: 2)
       @post3.votes.create(user_id: 3)
+      @post3.votes.create(user_id: 4)
       @post2.votes.create(user_id: 1)
       @post2.votes.create(user_id: 2)
-      @post2.votes.create(user_id: 3)
-      @post2.votes.create(user_id: 4)
-      Post.by_points.should eq [@post2, @post3, @post1, @post4]
+      Post.by_points.should eq [@post3, @post1, @post2, @post4]
     end
 
     it 'should sort by most recent (default .all method)' do

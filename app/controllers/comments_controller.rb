@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+
   def new
     @answer = Answer.find(params[:answer])
     @comment = @answer.comments.new

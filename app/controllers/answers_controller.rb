@@ -1,4 +1,5 @@
 class AnswersController < ApplicationController
+
   def new
     @post = Post.find(params[:post])
     @answer = @post.answers.new

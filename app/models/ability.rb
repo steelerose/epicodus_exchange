@@ -2,34 +2,26 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    can :crud, User, :id => user.id
+    user ||= User.new
 
     if user.admin?
       can :manage, :all
     else
       can :read, :all
-      can :update, :all, :user_id => user.id
-      can :create, Post,
+      can :manage, :all, user_id: user.id
     end
 
-
-    
-    alias_action :add, :create
   end
 end
 
 
 # Posts, Answers, Comments
-# - not logged in: show, index
-# - any log in: add, create
-# - correct log in: edit, update, mark answered
-
-
-# - admin: destroy, mark answered
+#    guest:         read
+#    user:          read, create
+#    correct user:  read, create, update
+#    admin:         manage
 
 # Users
-# - not logged in: add, create, show, index
-# - correct log in: edit, update, destroy
-
-
-# - admin: destroy
+#    guest:         read, create
+#    correct user:  read, create, update, destroy
+#    admin:         manage
