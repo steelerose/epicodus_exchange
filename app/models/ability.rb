@@ -6,9 +6,11 @@ class Ability
 
     if user.admin?
       can :manage, :all
-    else
+    elsif !user.id.nil?
       can :read, :all
       can :manage, :all, user_id: user.id
+    else
+      can :read, :all
     end
 
   end

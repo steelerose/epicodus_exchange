@@ -98,6 +98,12 @@ describe PostsController do
       @post.answered?.should be_true
     end
 
+    it 'should remove the \'Issue resolved\' button after the post is marked as resolved' do
+      click_button 'Issue resolved'
+      visit post_path(@post)
+      expect(page).not_to have_button 'Issue resolved'
+    end
+
     it 'should allow you to delete an answer' do
       expect { click_link 'delete answer' }.to change(Answer, :count).by(-1)
     end
@@ -116,7 +122,7 @@ describe PostsController do
   # EDIT PAGE
   describe 'Edit page' do
     before do
-      @post = create(:post)
+      @post = create(:post, user_id: @user.id)
       visit root_path
       click_link @post.name
       click_link 'edit post'

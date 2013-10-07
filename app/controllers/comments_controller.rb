@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
-
+  authorize_resource
+  
   def new
     @answer = Answer.find(params[:answer])
     @comment = @answer.comments.new

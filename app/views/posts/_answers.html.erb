@@ -13,8 +13,10 @@
               </p>
               <p>
                 <%= link_to 'eventually will reveal new comment form', class: 'new-comment' %>
+                <% if current_user && current_user == answer.user %>
                  | <%= link_to 'edit answer', edit_answer_path(answer) %>
                  | <%= link_to 'delete answer', answer_path(answer_id: answer.id), method: :delete, data: { confirm: 'Delete answer?' } %>
+                <% end %>
               </p>
               <%= render 'comments', answer: answer %>
               <div class="new-comment-form">

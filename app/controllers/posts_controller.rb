@@ -1,7 +1,8 @@
 class PostsController < ApplicationController
+  authorize_resource
 
   def new
-    @post = Post.new
+    @post = Post.new(user: current_user)
   end
 
   def create

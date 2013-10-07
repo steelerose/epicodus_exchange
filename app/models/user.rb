@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :answers
   has_many :comments
+  has_many :votes
 
   def karma
     self.answers.reduce(0) { |total, answer| total + answer.votes.count }

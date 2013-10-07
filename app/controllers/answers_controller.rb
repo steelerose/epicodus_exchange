@@ -1,5 +1,6 @@
 class AnswersController < ApplicationController
-
+  authorize_resource
+  
   def new
     @post = Post.find(params[:post])
     @answer = @post.answers.new

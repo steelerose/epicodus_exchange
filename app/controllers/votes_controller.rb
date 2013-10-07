@@ -1,5 +1,6 @@
 class VotesController < ApplicationController
-
+  authorize_resource
+  
   def create
     object = Object.const_get(params[:sym]).find(params[:object])
     vote = object.votes.new(user_id: current_user.id)

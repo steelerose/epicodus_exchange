@@ -9,6 +9,7 @@ describe User do
   it { should have_many :posts }
   it { should have_many :answers }
   it { should have_many :comments }
+  it { should have_many :votes }
 
   it 'should have karma equal to the number of votes on that user\'s answers' do
     @user = create(:user)

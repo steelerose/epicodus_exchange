@@ -7,12 +7,17 @@
      | Last edited: <%= @post.updated_at.strftime("%d %b '%y") %>
      | <%= pluralize(@post.votes.count, "vote") %>
      | <%= link_to 'upvote', votes_path(object: @post, sym: :Post), method: :post %>
-     | <%= link_to 'edit post', edit_post_path(@post) %>
-     | <%= link_to 'delete post', @post, method: :delete, data: { confirm: 'Delete post?' } %>
+    <% if current_user && current_user == @post.user %>
+       | <%= link_to 'edit post', edit_post_path(@post) %>
+       | <%= link_to 'delete post', @post, method: :delete, data: { confirm: 'Delete post?' } %>
+    <% end %>
   </h6>
-  <h6 class="center subheader">
-    <%= render 'resolved' %>
-  </h6>
+
+  <% if current_user && current_user == @post.user && !@post.answered? %>
+    <h6 class="center subheader">
+      <%= render 'resolved' %>
+    </h6>
+  <% end %>
 
   <div class="large-offset-2 large-8 small-12">
     <%= @post.content %>
