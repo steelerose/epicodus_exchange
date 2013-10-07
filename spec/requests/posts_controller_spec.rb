@@ -77,9 +77,9 @@ describe PostsController do
   # SHOW PAGE
   describe 'Show page' do
     before do
-      @post = create(:post, user_id: 1)
-      @post.answers.create(content: 'I can help!', user_id: 1)
-      @post.answers.first.comments.create(content: 'No you can\'t', user_id: 1)
+      @post = create(:post, user_id: @user.id)
+      @post.answers.create(content: 'I can help!', user_id: @user.id)
+      @post.answers.first.comments.create(content: 'No you can\'t', user_id: @user.id)
       visit root_path
       click_link @post.name
     end
@@ -94,6 +94,7 @@ describe PostsController do
 
     it 'should allow you to mark a post as \'answered\'' do
       click_button 'Issue resolved'
+      @post.reload
       @post.answered?.should be_true
     end
 
