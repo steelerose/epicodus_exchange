@@ -26,6 +26,7 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    authorize! :update, @post
   end
 
   def update

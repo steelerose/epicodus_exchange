@@ -47,16 +47,26 @@ describe SessionsController do
     it 'prevents user from manually visiting forbidden paths' do
       visit '/posts/new'
       expect(page).to have_title 'Sign in'
+      # posts#create
       visit "/posts/#{@post.id}/edit"
       expect(page).to have_title 'Sign in'
+      # posts#update
+      # posts#destroy
       visit "/answers/new?post=#{@post.id}"
       expect(page).to have_title 'Sign in'
+      # answers#create
       visit "/answers/#{@answer.id}/edit"
       expect(page).to have_title 'Sign in'
+      # answers#update
+      # answers#destroy
       visit "/comments/new?answer=#{@answer.id}"
       expect(page).to have_title 'Sign in'
+      # comments#create
       visit "/comments/#{@comment.id}/edit"
       expect(page).to have_title 'Sign in'
+      # comments#update
+      # comments#destroy
+      # votes#create
     end
   end
 
@@ -74,11 +84,14 @@ describe SessionsController do
 
     it 'prevents user from manually managing other user\'s posts, answers, or comments' do
       visit "/posts/#{@post.id}/edit"
-      expect(page).to have_title 'Sign in'
+      expect(page).to have_content 'Salutations!'
+      # posts#update
       visit "/answers/#{@answer.id}/edit"
-      expect(page).to have_title 'Sign in'
+      expect(page).to have_content 'Salutations!'
+      # answers#update
       visit "/comments/#{@comment.id}/edit"
-      expect(page).to have_title 'Sign in'
+      expect(page).to have_content 'Salutations!'
+      # comments#update
     end
 
     describe 'other user\'s posts should not have links to manage post, answers, or comments' do

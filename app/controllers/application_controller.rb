@@ -6,7 +6,11 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to '/users/sign_in', alert: exception.message
+    if current_user.nil?
+      redirect_to '/users/sign_in', alert: exception.message
+    else
+      redirect_to root_path, alert: exception.message
+    end
   end
 
 protected
