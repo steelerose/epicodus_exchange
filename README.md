@@ -10,6 +10,7 @@ FIX:
 - New/edit comment is on show post page, not on new page
 - Mark post as answered stays on show post page
 - Misc. devise pages (remember me, forgot password, email new password, etc)
+- CanCan tests for create, update, destroy
 
 ADD:
 - Users index page
@@ -25,6 +26,7 @@ ADD:
 - Posts page
   - ability to star/save question
   - admin can mark answer as correct
+  - show all comments for post
 - New post page
   - admin can mark a new post as question or announcement
 - Posts index page
@@ -43,3 +45,5 @@ Static Pages
   - Link to Epicodus main page
   - Contact
   - Help
+Comments
+  - make Comment model 'commentable' - attach to Post & Answer

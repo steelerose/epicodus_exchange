@@ -1,18 +1,18 @@
 <% if answer.comments.any? %>
-<div class="large-offset-1">
-  <ul class="plain-ul">
-    <% answer.comments.each do |comment| %>
-      <li>
-        <%= comment.content %>
-        <p>
-          <%= comment.created_at.strftime("%d %b '%y") %>
-          <% if current_user && current_user == comment.user %>
-           | <%= link_to 'edit comment', edit_comment_path(comment) %>
-           | <%= link_to 'delete comment', comment_path(comment_id: comment.id), method: :delete, data: { confirm: 'Delete comment?' } %>
-          <% end %>
-        </p>
-      </li>
-    <% end %>
-  </ul>
-</div>
+  <div class="large-offset-1">
+    <ul class="plain-ul">
+      <% answer.comments.each do |comment| %>
+        <li>
+          <%= comment.content %>
+          <p>
+            <%= comment.created_at.strftime("%d %b '%y") %>
+            <% if current_user && current_user == comment.user %>
+             | <%= link_to 'edit comment', edit_comment_path(comment) %>
+             | <%= link_to 'delete comment', comment_path(comment_id: comment.id), method: :delete, data: { confirm: 'Delete comment?' } %>
+            <% end %>
+          </p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>

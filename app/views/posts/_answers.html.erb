@@ -20,7 +20,7 @@
               </p>
               <%= render 'comments', answer: answer %>
               <div class="new-comment-form">
-                <%= link_to 'Reply', new_comment_path(answer: answer) %>
+                <%= link_to 'Reply', new_comment_path(answer: answer), remote: true, class: 'new-comment' %>
               </div>
             </li>
           <% end %>

@@ -1,0 +1,3 @@
+$('#new_comment').remove();
+$('.new-comment').show();
+$('.plain-ul').empty().append('<%= j render("posts/comments", answer: @answer) %>');

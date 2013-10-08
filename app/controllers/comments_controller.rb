@@ -12,10 +12,23 @@ class CommentsController < ApplicationController
     @comment.user = current_user
     if @comment.save
       flash[:success] = 'Comment added'
-      redirect_to post_path(@answer.post)
+      respond_to do |format|
+        format.html { redirect_to post_path(@answer.post) }
+        format.js
+      end
     else
-      render 'new'
+      respond_to do |format|
+        format.html { render 'new' }
+        format.js
+      end
     end
+    
+    # if @comment.save
+    #   flash[:success] = 'Comment added'
+    #   redirect_to post_path(@answer.post)
+    # else
+    #   render 'new'
+    # end
   end
 
   def edit
