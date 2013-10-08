@@ -22,32 +22,10 @@ class CommentsController < ApplicationController
         format.js
       end
     end
-    
-    # if @comment.save
-    #   flash[:success] = 'Comment added'
-    #   redirect_to post_path(@answer.post)
-    # else
-    #   render 'new'
-    # end
-  end
-
-  def edit
-    @comment = Comment.find(params[:id])
-    authorize! :update, @comment
-  end
-
-  def update
-    @comment = Comment.find(params[:comment][:comment_id])
-    @comment.update(comment_params)
-    if @comment.save
-      redirect_to post_path(@comment.answer.post)
-    else
-      render 'edit'
-    end
   end
 
   def destroy
-    @comment = Comment.find(params[:comment_id])
+    @comment = Comment.find(params[:id])
     @comment.destroy
     redirect_to post_path(@comment.answer.post)
   end

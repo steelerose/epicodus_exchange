@@ -23,10 +23,14 @@ ADD:
   - admin can make a user a moderator or admin
   - show rank
   - show saved/starred questions
+  - github and website should open in new tab/window
 - Posts page
   - ability to star/save question
   - admin can mark answer as correct
   - show all comments for post
+  - fix word limits for posts, answers, and comments
+  - fix text size for comments
+  - allow people to add code to posts and answers
 - New post page
   - admin can mark a new post as question or announcement
 - Posts index page

@@ -4,7 +4,7 @@ EpicodusExchange::Application.routes.draw do
   resources 'posts'
   resources 'votes', only: :create
   resources 'answers', except: [:index, :show]
-  resources 'comments', except: [:index, :show]
+  resources 'comments', only: [:new, :create, :destroy]
   resources 'users', only: [:show, :index]
 
   root 'posts#index'
