@@ -2,11 +2,18 @@
 
 <div class="row">
   <h3 class="center"><%= @post.name %></h3>
+
+  <div class="large-offset-1 large-10 small-12">
+    <p><%= @post.content %></p>
+  </div>
+
   <h6 class="center subheader">
-    Posted: <%= @post.created_at.strftime("%d %b '%y") %>
+    <%= link_to "#{@post.user.first_name} #{@post.user.last_name}", user_path(@post.user), target: '_blank' %>
+     | Posted: <%= @post.created_at.strftime("%d %b '%y") %>
      | Last edited: <%= @post.updated_at.strftime("%d %b '%y") %>
      | <%= pluralize(@post.votes.count, "vote") %>
      | <%= link_to 'upvote', votes_path(object: @post, sym: :Post), method: :post %>
+     | <%= link_to 'answer post', new_answer_path(post: @post) %>
     <% if current_user && current_user == @post.user %>
        | <%= link_to 'edit post', edit_post_path(@post) %>
        | <%= link_to 'delete post', @post, method: :delete, data: { confirm: 'Delete post?' } %>
@@ -18,14 +25,6 @@
       <%= render 'resolved' %>
     </h6>
   <% end %>
-
-  <div class="large-offset-2 large-8 small-12">
-    <%= @post.content %>
-  </div>
-
-  <h6 class="center subheader">
-    <%= link_to 'Answer post', new_answer_path(post: @post) %>
-  </h6>
 </div>
 
 <%= render 'answers', post: @post %>

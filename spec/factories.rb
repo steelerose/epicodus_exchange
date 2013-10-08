@@ -7,14 +7,12 @@ FactoryGirl.define do
 
   factory :answer do 
     sequence(:content) { |n| "foobar#{n} solution" }
-    sequence(:user_id) { |n| n }
     post
     user
   end
 
   factory :comment do 
     sequence(:content) { |n| "response to foobar#{n} solution" }
-    answer
     user
   end
 

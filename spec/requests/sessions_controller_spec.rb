@@ -6,7 +6,7 @@ describe SessionsController do
   before do
     @post = create(:post)
     @answer = create(:answer, post: @post)
-    @comment = create(:comment, answer: @answer)
+    @comment = create(:comment, commentable: @answer)
     visit root_path
   end
 
@@ -24,7 +24,6 @@ describe SessionsController do
       it { should_not have_button 'Issue resolved' }
       it { should_not have_content 'edit answer' }
       it { should_not have_content 'delete answer' }
-      it { should_not have_content 'edit comment' }
       it { should_not have_content 'delete comment' }
     end
 
@@ -33,13 +32,13 @@ describe SessionsController do
       find(:xpath, "(//a[text()='upvote'])[1]").click
       expect(page).to have_title 'Sign in'
       visit post_path(@post)
-      click_link 'Answer post'
+      click_link 'answer post'
       expect(page).to have_title 'Sign in'
       visit post_path(@post)
       find(:xpath, "(//a[text()='upvote'])[2]").click
       expect(page).to have_title 'Sign in'
       visit post_path(@post)
-      click_link 'Reply'
+      click_link 'comment'
       expect(page).to have_title 'Sign in'
       #add comment to post
     end
@@ -62,9 +61,6 @@ describe SessionsController do
       visit "/comments/new?answer=#{@answer.id}"
       expect(page).to have_title 'Sign in'
       # comments#create
-      visit "/comments/#{@comment.id}/edit"
-      expect(page).to have_title 'Sign in'
-      # comments#update
       # comments#destroy
       # votes#create
     end
@@ -89,9 +85,6 @@ describe SessionsController do
       visit "/answers/#{@answer.id}/edit"
       expect(page).to have_content 'Salutations!'
       # answers#update
-      visit "/comments/#{@comment.id}/edit"
-      expect(page).to have_content 'Salutations!'
-      # comments#update
     end
 
     describe 'other user\'s posts should not have links to manage post, answers, or comments' do
@@ -102,7 +95,6 @@ describe SessionsController do
       it { should_not have_button 'Issue resolved' }
       it { should_not have_content 'edit answer' }
       it { should_not have_content 'delete answer' }
-      it { should_not have_content 'edit comment' }
       it { should_not have_content 'delete comment' }
     end
   end

@@ -15,6 +15,7 @@ gem 'jbuilder'
 gem 'zurb-foundation'
 gem 'devise'
 gem 'cancan'
+gem 'textacular'
 
 group :development, :test do
   gem 'rspec-rails'

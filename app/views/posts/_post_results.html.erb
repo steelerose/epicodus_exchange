@@ -1,0 +1,22 @@
+<section class="links">
+  <div class="row">
+    <div class="large-offset-1 columns">
+      <%#= will_paginate previous_label: h("<"), next_label: h(">") %>
+    </div>
+  </div>
+  <ul class="links large-10 large-offset-1 columns no-bullet">
+    
+    <% posts.each do |post| %>
+      <li>
+        <span class="post-listing-title"><%= link_to post.name, post %></span>
+        <p>
+          <span class="post-listing-details">
+            <%= link_to "#{post.user.first_name} #{post.user.last_name}", user_path(post.user), target: '_blank' %>
+             | <%= post.created_at.strftime("%d %b '%y") %>
+             | <%= pluralize(post.votes.count, "vote") %>
+          </span>
+        </p>
+      </li>
+    <% end %>
+  </ul>
+</section>

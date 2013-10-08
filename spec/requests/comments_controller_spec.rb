@@ -11,10 +11,10 @@ describe CommentsController do
     click_button 'Sign in'
     @post = create(:post, user_id: @user.id)
     visit post_path(@post)
-    click_link 'Answer post'
+    click_link 'answer post'
     fill_in 'Answer:', with: 'Help is on the way!'
     click_button 'Submit'
-    click_link 'Reply'
+    click_link 'comment'
   end
 
   # NEW PAGE
@@ -46,11 +46,6 @@ describe CommentsController do
         expect(page).to have_content(@post.name)
       end
 
-      it 'should display a confirmation message' do
-        click_button 'Submit'
-        expect(page).to have_content('Comment added')
-      end
-
       it 'should add an answer to the database' do
         expect { click_button 'Submit' }.to change(Comment, :count).by(1)
       end
@@ -58,48 +53,6 @@ describe CommentsController do
       it 'should have a user' do
         click_button 'Submit'
         @post.answers.first.comments.first.user.should_not be_nil
-      end
-    end
-  end
-
-  # EDIT PAGE
-  describe 'Edit page' do
-    before do
-      fill_in 'Comment:', with: 'When? I\'m desperate!'
-      click_button 'Submit'
-      click_link 'edit comment'
-    end
-
-    it { should have_title('Edit comment') }
-    it { should have_content(@post.name) }
-
-    describe 'with invalid information' do
-      before do
-        fill_in 'Comment:', with: ''
-        click_button 'Save changes'
-      end
-
-      it { should have_title('Edit comment') }
-      it { should have_content('error') }
-
-      it 'should not update the post in the database' do
-        @post.answers.first.comments.first.reload
-        @post.answers.first.comments.first.content.should_not eq ''
-      end
-    end
-
-    describe 'with valid information' do
-      before do
-        fill_in 'Comment:', with: '...or not'
-        click_button 'Save changes'
-      end
-
-      it { should have_title('View post') }
-      it { should have_content(@post.name) }
-
-      it 'should update the post in the database' do
-        @post.answers.first.comments.first.reload
-        @post.answers.first.comments.first.content.should eq '...or not'
       end
     end
   end

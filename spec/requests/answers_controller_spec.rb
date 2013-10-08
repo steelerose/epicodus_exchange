@@ -4,14 +4,14 @@ describe AnswersController do
   subject { page }
 
   before do
-    @post = create(:post, user_id: 1)
+    @post = create(:post)
     @user = create(:user)
     visit '/users/sign_in'
     fill_in 'Email', with: @user.email
     fill_in 'Password', with: @user.password
     click_button 'Sign in'
     visit post_path(@post)
-    click_link 'Answer post'
+    click_link 'answer post'
   end
 
   # NEW PAGE

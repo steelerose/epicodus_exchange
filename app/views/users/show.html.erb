@@ -4,8 +4,9 @@
   <div class="large-4 small-4 columns">
     <h3><%= @user.first_name %> <%= @user.last_name %></h3>
     <h5 class="subheader"><%= @user.karma %> karma</h5>
-    <h6 class="subheader">GitHub: <%= link_to @user.github, "https://github.com/#{@user.github}" %></h6>
-    <h6 class="subheader">Website: <%= link_to @user.website, @user.website %></h6>
+    <h6 class="subheader">Rank: <%= @user.rank %> of <%= User.all.length %></h6>
+    <h6 class="subheader">GitHub: <%= link_to @user.github, "https://github.com/#{@user.github}", target: '_blank' %></h6>
+    <h6 class="subheader">Website: <%= link_to @user.website, @user.website, target: '_blank' %></h6>
   </div>
   <div class="large-offset-1 small-offset-1 large-7 small-7 columns">
     <h4>Posts</h4>

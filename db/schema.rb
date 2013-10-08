@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131004224128) do
+ActiveRecord::Schema.define(version: 20131008231545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,26 +19,27 @@ ActiveRecord::Schema.define(version: 20131004224128) do
   create_table "answers", force: true do |t|
     t.integer  "post_id"
     t.integer  "user_id"
-    t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "content"
   end
 
   create_table "comments", force: true do |t|
-    t.integer  "answer_id"
     t.integer  "user_id"
-    t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "content"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
   end
 
   create_table "posts", force: true do |t|
-    t.string   "content"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
     t.boolean  "answered",   default: false
+    t.text     "content"
   end
 
   create_table "users", force: true do |t|
@@ -59,6 +60,7 @@ ActiveRecord::Schema.define(version: 20131004224128) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "karma",                  default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

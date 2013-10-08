@@ -5,49 +5,68 @@ Created by [Julie Steele](http://juliesteele.site44.com/).
 
 FIX:
 - Update and uncomment final line in config/environments/production.rb (host => 'localhost:3000')
-- 'Delete Post' button shows confirmation popup twice
-- Navbar dropdown menus
-- New/edit comment is on show post page, not on new page
-- Mark post as answered stays on show post page
 - Misc. devise pages (remember me, forgot password, email new password, etc)
 - CanCan tests for create, update, destroy
+- First comment doesn't automatically show
+- Only open reply box for ONE comment
+- Add tests for new comments AJAX functionality
 
 ADD:
-- Users index page
-  - auto sort by rank
-  - searchable by name (first, last, or both)
-  - searchable by github
-  - within results, can show only one type (student, alumni, etc)
-  - within results, can show only one class (ex: Fall 2013)
-- Users page
-  - admin can make a user a moderator or admin
-  - show rank
-  - show saved/starred questions
-  - github and website should open in new tab/window
-- Posts page
+- Everywhere
+  - Prettify
+
+- Posts Index Page (Home)
+  - can choose to view all questions, resolved questions, or unresolved questions
+- Posts Show Page (one post)
+  - add comments for posts (link, display, etc)
+  - add counter to comments to show how many characters are left
+
+- Users Index Page (all users)
+  - searchable by name and github
+
+- Static Pages
+  - Navbar
+    - remove dropdown menus
+    - add dividers
+
+
+
+
+AFTER ADMIN:
+- Posts Index Page (Home)
+  - search all questions does not search announcements
+  - show announcements above questions
+  - rank announcements by date only
+  - fix time-points algorythm
+- Posts Show Page (one post)
   - ability to star/save question
   - admin can mark answer as correct
-  - show all comments for post
-  - fix word limits for posts, answers, and comments
-  - fix text size for comments
-  - allow people to add code to posts and answers
-- New post page
-  - admin can mark a new post as question or announcement
-- Posts index page
-  - shows announcements above questions
-  - change time-points algorythm
-  - ability to search by combination of post name, post content, answer content
-  - admin can view all resolved questions
-  - within results, can show all results or only answered posts
-Admin abilities
-  - admin can manage (edit or delete) posts, answers, comments, and users
+  - allow paragraph breaks in posts and answers
+  - allow code/special font in posts and answers
+  - use AJAX for marking post as answered (should stay on page and remove button)
+- New Post Page
+  - Admin can mark new post as question or announcement
+
+- Users Index Page (all users)
+  - can show only one type (student, alumni, etc)
+  - can show only one class (Fall 2013)
+- Users Page (one user)
+  - admin can make user moderator or admin
+  - show saved/starred questions
+
+- Admin Abilities
+  - admin can manage *everything*
   - admin can mark a post as answered
-Footer
-  - created by, copyright, contact, etc
+  - only admin can delete a post
+
+- Footer
+  - created by, copywright, contact, etc
   - http://stackoverflow.com/questions/13178801/creating-footer-using-zurb-foundation-css-framework
-Static Pages
+
+- Navbar
+  - add dropdown menus
+
+- Static Pages
   - Link to Epicodus main page
   - Contact
   - Help
-Comments
-  - make Comment model 'commentable' - attach to Post & Answer

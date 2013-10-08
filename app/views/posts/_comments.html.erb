@@ -5,7 +5,8 @@
         <li>
           <%= comment.content %>
           <p>
-            <%= comment.created_at.strftime("%d %b '%y") %>
+            <%= link_to "#{answer.user.first_name} #{answer.user.last_name}", user_path(comment.user), target: '_blank' %>
+             | <%= comment.created_at.strftime("%d %b '%y") %>
             <% if current_user && current_user == comment.user %>
              | <%= link_to 'delete comment', comment_path(id: comment.id), method: :delete, data: { confirm: 'Delete comment?' } %>
             <% end %>

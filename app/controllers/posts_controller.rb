@@ -16,12 +16,24 @@ class PostsController < ApplicationController
     end
   end
 
+  def search
+    @posts = Post.search(params[:keyword])
+    render 'results'
+  end
+
   def show
     @post = Post.find(params[:id])
   end
 
   def index
-    @posts = Post.unanswered.paginate(page: params[:page], per_page: 20)
+    if params[:keyword]
+      @keywords = params[:keyword]
+      @posts = Post.search(@keywords)
+      render 'results'
+    else
+      @posts = Post.unanswered.paginate(page: params[:page], per_page: 20)
+      # render root_path
+    end
   end
 
   def edit

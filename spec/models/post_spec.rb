@@ -3,23 +3,24 @@ require 'spec_helper'
 describe Post do
   it { should have_many :votes }
   it { should have_many :answers }
+  it { should have_many :comments }
   it { should respond_to :content }
   it { should respond_to :name }
   it { should respond_to :answered }
   it { should respond_to :points }
   it { should belong_to :user }
   it { should validate_presence_of :content }
-  it { should ensure_length_of(:content).is_at_most(1000) }
+  it { should ensure_length_of(:content).is_at_most(5000) }
   it { should validate_presence_of :name }
   it { should ensure_length_of(:name).is_at_most(100) }
   it { should validate_presence_of :user_id }
 
   describe 'custom \'all\' methods' do
     before do
-      @post1 = create(:post, created_at: 100.days.ago)
-      @post2 = create(:post, created_at: 10.days.ago, answered: 't')
+      @post1 = create(:post, content: 'I have baz for you', created_at: 100.days.ago)
+      @post2 = create(:post, content: 'Baz for you too', created_at: 10.days.ago, answered: 't')
       @post3 = create(:post, created_at: 50.days.ago)
-      @post4 = create(:post, created_at: 70.days.ago, answered: 't')
+      @post4 = create(:post, content: 'many happy bazzies', created_at: 70.days.ago, answered: 't')
       @post1.votes.create(user_id: 1)
       @post4.votes.create(user_id: 1)
     end
@@ -47,6 +48,21 @@ describe Post do
 
     it 'should sort by most recent (default .all method)' do
       Post.all.should eq [@post2, @post3, @post4, @post1]
+    end
+
+    describe 'search post content' do
+
+      it 'should return all posts with content matching a requested keyword, regardless of case' do
+        Post.search('bAz').should eq [@post2, @post1]
+      end
+
+      it 'should not return a post more than once (unique array)' do
+        Post.search('baz baz').should eq [@post2, @post1]
+      end
+
+      it 'should return all posts with content matching requested keywords (testing more than one keyword)' do
+        Post.search('baz happy').should eq [@post2, @post1, @post4]
+      end
     end
   end
 

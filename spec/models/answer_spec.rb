@@ -6,7 +6,7 @@ describe Answer do
   it { should have_many :votes }
   it { should have_many :comments }
   it { should validate_presence_of :content }
-  it { should ensure_length_of(:content).is_at_most(1000) }
+  it { should ensure_length_of(:content).is_at_most(2500) }
   it { should validate_presence_of :user_id }
 
   it 'should sort by total points' do

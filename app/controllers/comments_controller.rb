@@ -11,7 +11,6 @@ class CommentsController < ApplicationController
     @comment = @answer.comments.new(comment_params)
     @comment.user = current_user
     if @comment.save
-      flash[:success] = 'Comment added'
       respond_to do |format|
         format.html { redirect_to post_path(@answer.post) }
         format.js
@@ -27,7 +26,11 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
-    redirect_to post_path(@comment.answer.post)
+    if @comment.commentable_type == 'Post'
+      redirect_to post_path(@comment.commentable)
+    else
+      redirect_to post_path(@comment.commentable.post)
+    end
   end
 
 private

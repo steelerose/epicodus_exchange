@@ -1,8 +1,9 @@
 class Post < ActiveRecord::Base
   belongs_to :user
+  has_many :comments, as: :commentable
   has_many :answers
   has_many :votes, as: :votable
-  validates :content, presence: true, length: { maximum: 1000 }
+  validates :content, presence: true, length: { maximum: 5000 }
   validates :name, presence: true, length: { maximum: 100 }
   validates :user_id, presence: true
   default_scope { order('created_at DESC') }
@@ -21,6 +22,13 @@ class Post < ActiveRecord::Base
 
   def Post.by_points
     Post.all.sort { |x,y| y.points <=> x.points }
+  end
+
+  def Post.search(keyword)
+    keywords = keyword.to_s.downcase.strip.split.uniq
+    results = []
+    keywords.each { |keyword| results.concat(Post.basic_search(keyword)) }
+    results.uniq
   end
 
 private

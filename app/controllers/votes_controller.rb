@@ -10,6 +10,7 @@ class VotesController < ApplicationController
     if object.class.to_s != 'Post'
       redirect_to object.post
     else
+      object.user.update(karma: object.user.update_karma + 1)
       redirect_to object
     end
   end

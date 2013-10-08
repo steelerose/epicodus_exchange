@@ -8,7 +8,7 @@ describe VotesController do
       fill_in 'Email', with: @user.email
       fill_in 'Password', with: @user.password
       click_button 'Sign in'
-      @post = create(:post, user_id: 1)
+      @post = create(:post)
       visit root_path
       click_link @post.name
     end
@@ -29,7 +29,7 @@ describe VotesController do
     end
 
     it 'should only let you vote once per answer' do
-      @post.answers.create(content: 'Solution to foo', user_id: 1)
+      @post.answers.create(content: 'Solution to foo', user: create(:user))
       visit post_path(@post)
       find(:xpath, "(//a[text()='upvote'])[2]").click
       expect { find(:xpath, "(//a[text()='upvote'])[2]").click }.not_to change(Vote, :count)

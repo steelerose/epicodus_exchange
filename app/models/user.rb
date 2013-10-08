@@ -8,8 +8,27 @@ class User < ActiveRecord::Base
   has_many :answers
   has_many :comments
   has_many :votes
+  before_save :standardize_url
 
-  def karma
-    self.answers.reduce(0) { |total, answer| total + answer.votes.count }
+  def rank
+    User.by_rank.index { |user| user.karma == self.karma } + 1
+  end
+
+  def User.by_rank
+    User.all.sort { |x,y| y.karma <=> x.karma }
+  end
+
+  def update_karma
+    current_karma = self.answers.reduce(0) { |total, answer| total + answer.votes.count }
+    self.update(karma: current_karma)
+    current_karma
+  end
+
+private
+
+  def standardize_url
+    if !self.website.empty? && !self.website.match(/\Ahttps?:\/\//i)
+      self.website = "http://#{self.website}"
+    end
   end
 end
