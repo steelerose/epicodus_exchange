@@ -5,6 +5,11 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.by_rank
+    if params[:keyword]
+      @keywords = params[:keyword]
+      @users = User.search(@keywords)
+    else
+      @users = User.by_rank.paginate(page: params[:page], per_page: 20)
+    end
   end
 end

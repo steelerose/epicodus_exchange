@@ -1,6 +1,6 @@
 <div class="row">
   <div class="large-6 large-offset-3 small-12">
-    <%= form_tag root_path, method: 'get' %>
+    <%= form_tag '/users', method: 'get' %>
 
       <%= label_tag :keyword, 'Search by student name or github account:' %>
       <%= text_field_tag :keyword %>

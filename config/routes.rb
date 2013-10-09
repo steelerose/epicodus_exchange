@@ -5,9 +5,9 @@ EpicodusExchange::Application.routes.draw do
   resources 'votes', only: :create
   resources 'answers', except: [:index, :show]
   resources 'comments', only: [:new, :create, :destroy]
-  resources 'users', only: [:show, :index]
+  resources 'users', only: [:index, :show]
 
   root 'posts#index'
 
-  match '/results', to: 'posts#search', via: 'post'
+  # match '/results', to: 'posts#search', via: 'post'
 end

@@ -21,9 +21,6 @@ ADD:
   - add comments for posts (link, display, etc)
   - add counter to comments to show how many characters are left
 
-- Users Index Page (all users)
-  - searchable by name and github
-
 - Static Pages
   - Navbar
     - remove dropdown menus
@@ -50,6 +47,7 @@ AFTER ADMIN:
 - Users Index Page (all users)
   - can show only one type (student, alumni, etc)
   - can show only one class (Fall 2013)
+  - searchable by partial name/github
 - Users Page (one user)
   - admin can make user moderator or admin
   - show saved/starred questions

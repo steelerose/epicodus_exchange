@@ -59,6 +59,26 @@ describe User do
     end
   end
 
+  describe 'search user name and github' do
+    before do
+      @user1 = create(:user, first_name: 'someone', github: 'user1')
+      @user2 = create(:user, first_name: 'somebody', github: 'user2')
+      @user3 = create(:user, first_name: 'nobody', github: 'user3')
+    end
+
+    it 'should return all users with content matching a requested keyword, regardless of case' do
+      User.search('someone').should eq [@user1]
+    end
+
+    it 'should not return a user more than once (unique array)' do
+      User.search('foo').should eq [@user1, @user2, @user3]
+    end
+
+    it 'should return all users with content matching requested keywords (testing more than one keyword)' do
+      User.search('someone somebody').should eq [@user1, @user2]
+    end
+  end
+
   it 'should validate format of website (has \'http://\' or similar format)' do
     user = create(:user, website: 'google.com')
     user.reload

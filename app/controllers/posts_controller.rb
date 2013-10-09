@@ -16,11 +16,6 @@ class PostsController < ApplicationController
     end
   end
 
-  def search
-    @posts = Post.search(params[:keyword])
-    render 'results'
-  end
-
   def show
     @post = Post.find(params[:id])
   end
@@ -32,7 +27,6 @@ class PostsController < ApplicationController
       render 'results'
     else
       @posts = Post.unanswered.paginate(page: params[:page], per_page: 20)
-      # render root_path
     end
   end
 

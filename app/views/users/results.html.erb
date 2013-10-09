@@ -1,0 +1,15 @@
+<div class="row">
+  <h2 class="center">People Go  Here!</h2>
+</div>
+
+<%#= render 'search_posts_form'%>
+
+<div class="row">
+
+  <div class="large-offset-1 columns">
+    <h4 class="subheader">Results for: "<%= @keywords %>"</h4>
+  </div>
+
+  <%#= render 'post_results', posts: @users %>
+  <%= @users.count %>
+</div>

@@ -24,6 +24,13 @@ class User < ActiveRecord::Base
     current_karma
   end
 
+  def User.search(keyword)
+    keywords = keyword.to_s.downcase.strip.split.uniq
+    results = []
+    keywords.each { |keyword| results.concat(User.basic_search(keyword)) }
+    results.uniq
+  end
+
 private
 
   def standardize_url
