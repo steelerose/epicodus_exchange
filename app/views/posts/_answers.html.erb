@@ -1,29 +1,46 @@
+<div class="row no-margin-bottom">
+  <div class="large-10 large-offset-1 no-margin-bottom">
+    <h4 class="subheader no-margin-bottom">
+      <%= pluralize(@post.answers.count, 'Answer') %>
+    </h4>
+    <% if @post.answers.empty? %>
+      <hr>
+    <% end %>
+  </div>
+</div>
+
 <% if @post.answers.any? %>
-  <section class="links">
-    <div class="row">
-      <div class="large-offset-2 large-8 small-12">
-        <ul class="plain-ul">
-          <% post.answers.ranked.each do |answer| %>
-            <li>
-              <p><%= answer.content %></p>
-              <h6 class="subheader">
-                <%= link_to "#{answer.user.first_name} #{answer.user.last_name}", user_path(answer.user), target: '_blank' %>
-                 | <%= answer.created_at.strftime("%d %b '%y") %>
-                 | <%= pluralize(answer.votes.count, "vote") %>
+  <div class="row">
+    <div class="large-offset-1 large-10 small-12">
+      <ul class="plain-ul">
+        <% post.answers.ranked.each do |answer| %>
+          <hr>
+          <li>
+            <div class="panel no-margin-bottom">
+              <p>
+                <%= simple_format(answer.content) 
+              %>
+              </p>
+            </div>
+            <h6 class="subheader lesser-size extra-margin-top extra-margin-bottom ">
+              <%= link_to "#{answer.user.first_name} #{answer.user.last_name}", user_path(answer.user), target: '_blank' %>
+               | <%= answer.created_at.strftime("%-d %b '%y") %>
+               | <%= pluralize(answer.votes.count, "vote") %>
+              <% if current_user != answer.user %>
                  | <%= link_to 'upvote', votes_path(object: answer, sym: :Answer), method: :post %>
-                 | <%= link_to 'comment', new_comment_path(id: answer, type: 'answer'), remote: true, class: 'new-comment-request' %>
-                <% if current_user && current_user == answer.user %>
-                 | <%= link_to 'edit', edit_answer_path(answer) %>
-                 | <%= link_to 'delete', answer_path(answer_id: answer.id), method: :delete, data: { confirm: 'Delete answer?' } %>
-                <% end %>
-              </h6>
-              <div class="new-comment-form" id="answer-form<%= answer.id %>">
-              </div>
-              <%= render 'answers_comments', answer: answer %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
+              <% end %>
+               | <%= link_to 'comment', new_comment_path(id: answer, type: 'answer'), remote: true, class: 'new-comment-request' %>
+              <% if current_user == answer.user %>
+               -- <%= link_to 'edit', edit_answer_path(answer) %>
+               -- <%= link_to 'delete', answer_path(answer_id: answer.id), method: :delete, data: { confirm: 'Delete answer?' } %>
+              <% end %>
+            </h6>
+            <div class="new-comment-form" id="answer-form<%= answer.id %>">
+            </div>
+            <%= render 'answers_comments', answer: answer %>
+          </li>
+        <% end %>
+      </ul>
     </div>
-  </section>
+  </div>
 <% end %>

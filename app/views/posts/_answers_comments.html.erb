@@ -1,16 +1,19 @@
-<div class="large-offset-1">
-  <ul class="plain-ul comments-ul" id="answer-show<%= answer.id %>">
-    <% answer.comments.each do |comment| %>
-      <li>
-        <%= comment.content %>
-        <p>
-          <%= link_to "#{comment.user.first_name} #{comment.user.last_name}", user_path(comment.user), target: '_blank' %>
-           | <%= comment.created_at.strftime("%d %b '%y") %>
-          <% if current_user && current_user == comment.user %>
-           | <%= link_to 'delete', comment_path(id: comment.id), method: :delete, data: { confirm: 'Delete comment?' } %>
-          <% end %>
-        </p>
-      </li>
-    <% end %>
-  </ul>
+<div class="row">
+  <div class="large-offset-1 large-10 small-12">
+    <ul class="plain-ul comments-ul" id="answer-show<%= answer.id %>">
+      <% answer.comments.each do |comment| %>
+        <li>
+          <hr class="super-thin">
+          <span class="comment-content"><%= comment.content %></span>
+          <p class="comment-info">
+            <%= link_to "#{comment.user.first_name} #{comment.user.last_name}", user_path(comment.user), target: '_blank' %>
+             | <%= comment.created_at.strftime("%-d %b '%y") %>
+            <% if current_user == comment.user %>
+             | <%= link_to 'delete', comment_path(id: comment.id), method: :delete, data: { confirm: 'Delete comment?' } %>
+            <% end %>
+          </p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </div>

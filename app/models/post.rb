@@ -4,7 +4,7 @@ class Post < ActiveRecord::Base
   has_many :answers
   has_many :votes, as: :votable
   validates :content, presence: true, length: { maximum: 5000 }
-  validates :name, presence: true, length: { maximum: 100 }
+  validates :name, presence: true, length: { maximum: 60 }
   validates :user_id, presence: true
   default_scope { order('created_at DESC') }
 

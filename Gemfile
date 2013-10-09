@@ -16,6 +16,8 @@ gem 'zurb-foundation'
 gem 'devise'
 gem 'cancan'
 gem 'textacular'
+gem 'therubyracer', require: "v8"
+gem 'execjs'
 
 group :development, :test do
   gem 'rspec-rails'

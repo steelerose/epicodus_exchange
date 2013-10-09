@@ -1,4 +1,6 @@
-<%= form_for(@post) do |f| %>
-  <%= f.hidden_field :answered, value: true %>
-  <%= f.submit 'Issue resolved', class: 'button tiny' %>
+<% if current_user == @post.user && !@post.answered? %>
+	<%= form_for(@post) do |f| %>
+	  <%= f.hidden_field :answered, value: true %>
+	  <%= f.submit 'Issue resolved', class: 'button tiny extra-margin-top no-margin-bottom' %>
+	<% end %>
 <% end %>

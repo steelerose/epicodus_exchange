@@ -25,15 +25,19 @@
     <%= render 'layouts/navbar' %>
 
     <% flash.each do |key, value| %>
-      <div class="alert-box">
-        <%= content_tag(:div, value, class: "alert-#{key}") %>
-      </div>
+      <%= content_tag(:div, value, class: "alert-box #{key}") %>
     <% end%>
 
     <%= yield %>
 
     <%= render 'layouts/footer' %>
     
-    <%= debug (params) if Rails.env.development? %>
+    <% if Rails.env.development? %>
+      <div class="row">
+        <div class="panel large-10 large-offset-1 small-12 columns">
+          <%= debug (params) %>
+        </div>
+      </div>
+    <% end %>
   </body>
 </html>

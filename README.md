@@ -13,13 +13,18 @@ FIX:
 ADD:
 - Everywhere
   - Prettify
+
 - Posts Index Page (Home)
   - can choose to view all questions, resolved questions, or unresolved questions
+
 - Posts Show Page (one post)
-  - add counter to comments to show how many characters are left
+  - use AJAX for marking post as answered (should stay on page and remove button)
+  - Any edits should redirect you to posts show page, *not* root path
+
 - Devise pages (sign in, etc)
   - remove extra links from bottom of page
   - check formatting ('remember me' box, etc)
+  
 - Static Pages
   - set up basic static pages (about, contact, help)
 
@@ -27,6 +32,12 @@ ADD:
 
 
 AFTER ADMIN:
+
+- Miscellaneous
+  - add tags to posts
+  - add preview option to posts
+
+
 - Posts Index Page (Home)
   - search all questions does not search announcements
   - show announcements above questions
@@ -37,7 +48,6 @@ AFTER ADMIN:
   - admin can mark answer as correct
   - allow paragraph breaks in posts and answers
   - allow code/special font in posts and answers
-  - use AJAX for marking post as answered (should stay on page and remove button)
 - New Post Page
   - Admin can mark new post as question or announcement
 
@@ -48,6 +58,11 @@ AFTER ADMIN:
 - Users Page (one user)
   - admin can make user moderator or admin
   - show saved/starred questions
+
+- Users
+  - About me (string - 250 chars or less)
+  - Languages I know (select from list)
+  - My best work (link to your best project)
 
 - Admin Abilities
   - admin can manage *everything*

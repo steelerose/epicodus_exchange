@@ -1,10 +1,14 @@
 <div class="row">
-  <div class="large-6 large-offset-3 small-12">
-    <%= form_tag '/users', method: 'get' %>
+	<div class="large-4 large-offset-8 small-6 small-offset-5 columns">
+	  <div class="row collapse">
+	    <div class="small-10 columns">
+	    	<%= form_tag '/users', method: 'get' %>
 
-      <%= label_tag :keyword, 'Search by student name or github account:' %>
-      <%= text_field_tag :keyword %>
-
-      <%= submit_tag 'Search', class: 'button small' %>
-  </div>
+    	  <%= text_field_tag :keyword, 'Search students' %>
+	    </div>
+	    <div class="small-2 columns">
+	    	<%= submit_tag 'Go!', class: 'button prefix' %>
+	    </div>
+	  </div>
+	</div>
 </div>

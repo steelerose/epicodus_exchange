@@ -1,22 +1,28 @@
 <% provide(:title, 'Answer post') %>
 
 <div class="row">
-  <h4 class="center">Answering: <%= @post.name %></h4>
+  <h4 class="center">Answering:<br/><%= @post.name %></h4>
 </div>
 
 <div class="row">
-  <div class="large-offset-2 large-8 small-12">
-    <p><%= @post.content %></p>
+  <div class="large-offset-1 large-10 small-12">
+    <div class="panel">
+      <p><%= simple_format(@post.content) %></p>
+    </div>
   </div>
 </div>
 
 <div class="row">
-  <div class="large-8 large-offset-2 small-12">
+  <div class="large-10 large-offset-1 small-12">
+    <h6 class="center subheader">
+      To display code, use:<br/><pre>&lt;pre&gt; &lt;/pre&gt;</pre>
+    </h6>
+
     <%= form_for(@answer) do |f| %>
       <%= render 'shared/error_messages', object: @answer %>
 
       <%= f.label :content, 'Answer:' %>
-      <%= f.text_area :content, class: 'text-area' %>
+      <%= f.text_area :content, class: 'text-area large-text-input' %>
 
       <%= f.hidden_field :post_id, value: @post.id %>
 

@@ -1,0 +1,26 @@
+<section class="links">
+  <div class="row">
+    <div class="large-offset-1 columns">
+      <%= will_paginate previous_label: h("<"), next_label: h(">") %>
+    </div>
+  </div>
+  <ul class="links large-10 large-offset-1 columns no-bullet">
+    
+    <% users.each do |user| %>
+      <li>
+        <span class="post-listing-title"><%= link_to "#{user.first_name} #{user.last_name}", user %></span>
+        <p>
+          <span class="post-listing-details">
+            <%= user.karma %> karma
+            <% unless user.github.empty? %>
+               | <%= link_to user.github, "https://github.com/#{user.github}", target: '_blank' %>
+            <% end %>
+            <% unless user.website.empty? %>
+               | <%= link_to user.website, user.website, target: '_blank' %>
+            <% end %>
+          </span>
+        </p>
+      </li>
+    <% end %>
+  </ul>
+</section>

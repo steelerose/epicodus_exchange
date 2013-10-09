@@ -5,6 +5,8 @@
         "foundation/variables",
         "foundation/components/alert-boxes";
 
+$faded: #6f6f6f;
+
 .center {
   text-align: center;
 }
@@ -30,6 +32,10 @@
   margin-top: 40px;
 }
 
+.character-count {
+  font-size: .8em;
+}
+
 .field_with_errors {
   @extend .error;
 }
@@ -38,12 +44,57 @@
   margin-top: 20px;
 }
 
+.extra-margin-bottom {
+  margin-bottom: 1em;
+}
+
+.extra-margin-top {
+  margin-top: .8em;
+}
+
+
+.lesser-size {
+  font-size: .9em;
+}
+
+.super-thin {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
 .plain-ul {
   list-style-type: none;
 }
 
 .comments-ul p {
   margin-bottom: 8px;
+}
+
+.comment-content {
+  font-size: .9em;
+  color: $faded;
+}
+
+.comment-info {
+  font-size: .8em;
+  color: $faded;
+}
+
+.large-text-input {
+  height: 20em;
+}
+
+.small-text-input {
+  height: 5em;
+}
+
+.post-title {
+  margin-top: .7em;
+  margin-bottom: .7em;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0em;
 }
 
 .pagination {
