@@ -8,7 +8,8 @@
       <%= f.label :content, 'Comment:' %>
       <%= f.text_area :content, class: 'text-area' %>
 
-      <%= f.hidden_field :answer_id, value: @answer.id %>
+      <%= f.hidden_field :id, value: @commentable.id %>
+      <%= f.hidden_field :type, value: @commentable.class.to_s.downcase %>
 
       <%= f.submit 'Submit', class: 'button small' %>
     <% end %>

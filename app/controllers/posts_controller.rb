@@ -23,7 +23,7 @@ class PostsController < ApplicationController
   def index
     if params[:keyword]
       @keywords = params[:keyword]
-      @posts = Post.search(@keywords)
+      @posts = Post.search(@keywords).paginate(page: params[:page], per_page: 20)
       render 'results'
     else
       @posts = Post.unanswered.paginate(page: params[:page], per_page: 20)

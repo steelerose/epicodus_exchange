@@ -8,7 +8,7 @@
     
     <% posts.each do |post| %>
       <li>
-        <span class="post-listing-title"><%= link_to post.name, post %></span>
+        <span class="post-listing-title"><%= link_to post.name, post %> | <%= pluralize(post.answers.count, "answer") %></span>
         <p>
           <span class="post-listing-details">
             <%= link_to "#{post.user.first_name} #{post.user.last_name}", user_path(post.user), target: '_blank' %>

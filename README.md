@@ -7,24 +7,21 @@ FIX:
 - Update and uncomment final line in config/environments/production.rb (host => 'localhost:3000')
 - Misc. devise pages (remember me, forgot password, email new password, etc)
 - CanCan tests for create, update, destroy
-- First comment doesn't automatically show
-- Only open reply box for ONE comment
 - Add tests for new comments AJAX functionality
+- Make sure EVERYTHING has been tested!!
 
 ADD:
 - Everywhere
   - Prettify
-
 - Posts Index Page (Home)
   - can choose to view all questions, resolved questions, or unresolved questions
 - Posts Show Page (one post)
-  - add comments for posts (link, display, etc)
   - add counter to comments to show how many characters are left
-
+- Devise pages (sign in, etc)
+  - remove extra links from bottom of page
+  - check formatting ('remember me' box, etc)
 - Static Pages
-  - Navbar
-    - remove dropdown menus
-    - add dividers
+  - set up basic static pages (about, contact, help)
 
 
 

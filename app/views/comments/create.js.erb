@@ -1,3 +1,7 @@
 $('#new_comment').remove();
 $('.new-comment-request').show();
-$('.comments-ul').empty().append('<%= j render("posts/comments", answer: @answer) %>');
+<% if @post.nil? %>
+  $('#answer-show<%= @answer.id %>').empty().append('<%= j render("posts/answers_comments", answer: @answer) %>');
+<% else %>
+  $('#post-show<%= @post.id %>').empty().append('<%= j render("posts/posts_comments", post: @post) %>');
+<% end %>

@@ -47,8 +47,8 @@ describe User do
       @user2.update_karma
     end
 
-    it 'should be able to be ranked by on karma' do
-      User.by_rank.should eq [@user3, @user2, @user4, @user1]
+    it 'should be able to be ranked by karma' do
+      User.by_rank.should eq [@user3, @user2, @user4, @user1] || [@user3, @user4, @user2, @user1]
     end
 
     it 'should have rank based on karma' do

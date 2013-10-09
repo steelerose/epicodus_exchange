@@ -11,15 +11,15 @@
                  | <%= answer.created_at.strftime("%d %b '%y") %>
                  | <%= pluralize(answer.votes.count, "vote") %>
                  | <%= link_to 'upvote', votes_path(object: answer, sym: :Answer), method: :post %>
-                 | <%= link_to 'comment', new_comment_path(answer: answer), remote: true, class: 'new-comment-request' %>
+                 | <%= link_to 'comment', new_comment_path(id: answer, type: 'answer'), remote: true, class: 'new-comment-request' %>
                 <% if current_user && current_user == answer.user %>
-                 | <%= link_to 'edit answer', edit_answer_path(answer) %>
-                 | <%= link_to 'delete answer', answer_path(answer_id: answer.id), method: :delete, data: { confirm: 'Delete answer?' } %>
+                 | <%= link_to 'edit', edit_answer_path(answer) %>
+                 | <%= link_to 'delete', answer_path(answer_id: answer.id), method: :delete, data: { confirm: 'Delete answer?' } %>
                 <% end %>
               </h6>
-              <div class="new-comment-form">
+              <div class="new-comment-form" id="answer-form<%= answer.id %>">
               </div>
-              <%= render 'comments', answer: answer %>
+              <%= render 'answers_comments', answer: answer %>
             </li>
           <% end %>
         </ul>

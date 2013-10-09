@@ -13,10 +13,11 @@
      | Last edited: <%= @post.updated_at.strftime("%d %b '%y") %>
      | <%= pluralize(@post.votes.count, "vote") %>
      | <%= link_to 'upvote', votes_path(object: @post, sym: :Post), method: :post %>
-     | <%= link_to 'answer post', new_answer_path(post: @post) %>
+     | <%= link_to 'answer', new_answer_path(post: @post) %>
+     | <%= link_to 'comment', new_comment_path(id: @post.id, type: 'post'), remote: true, class: 'new-comment-request' %>
     <% if current_user && current_user == @post.user %>
        | <%= link_to 'edit post', edit_post_path(@post) %>
-       | <%= link_to 'delete post', @post, method: :delete, data: { confirm: 'Delete post?' } %>
+       | <%= link_to 'delete', @post, method: :delete, data: { confirm: 'Delete post?' } %>
     <% end %>
   </h6>
 
@@ -26,5 +27,10 @@
     </h6>
   <% end %>
 </div>
+
+<div class="new-comment-form" id="post-form<%= @post.id %>">
+</div>
+
+<%= render 'posts_comments', post: @post %>
 
 <%= render 'answers', post: @post %>
