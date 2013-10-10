@@ -5,9 +5,6 @@ Created by [Julie Steele](http://juliesteele.site44.com/).
 
 ADD:
 
-- Miscellaneous
-  - user and Posts search doesn't work until page refresh
-
 - Heroku
   - background doesn't show
   - add content
@@ -26,6 +23,7 @@ AFTER ADMIN:
 
 - Miscellaneous
   - Make sure EVERYTHING has been tested!!
+  - fix button on user/posts search
 
 - Posts Index Page (Home)
   - can choose to view all questions, resolved questions, or unresolved questions
