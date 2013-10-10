@@ -4,10 +4,10 @@
 	    <div class="small-10 columns">
 	    	<%= form_tag '/users', method: 'get' %>
 
-    	  <%= text_field_tag :keyword, 'Search students' %>
+    	  <%= text_field_tag :keyword, '', placeholder: 'Search students' %>
 	    </div>
 	    <div class="small-2 columns">
-	    	<%= submit_tag 'Go!', class: 'button prefix' %>
+	    	<% submit_tag 'Go!', class: 'button prefix' %>
 	    </div>
 	  </div>
 	</div>

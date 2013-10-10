@@ -7,6 +7,24 @@ ADD:
 
 - Miscellaneous
   - user and Posts search doesn't work until page refresh
+
+- Heroku
+  - background doesn't show
+  - add content
+  
+- Static Pages
+  - Help
+  - Contact
+
+- Navbar
+  - fix dropdown menu
+
+
+
+
+AFTER ADMIN:
+
+- Miscellaneous
   - Make sure EVERYTHING has been tested!!
 
 - Posts Index Page (Home)
@@ -15,15 +33,6 @@ ADD:
 - Posts Show Page (one post)
   - use AJAX for marking post as answered (should stay on page and remove button)
   - Any edits should redirect you to posts show page, *not* root path
-  
-- Static Pages
-  - Help
-  - Contact
-
-
-
-
-AFTER ADMIN:
 
 - Miscellaneous
   - add tags to posts
