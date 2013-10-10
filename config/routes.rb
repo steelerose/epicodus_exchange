@@ -9,6 +9,6 @@ EpicodusExchange::Application.routes.draw do
 
   root 'posts#index'
 
-  match '/contact', to: 'static_pages#contact', via: 'get'
+  match '/about', to: 'static_pages#about', via: 'get'
   match '/help', to: 'static_pages#help', via: 'get'
 end
