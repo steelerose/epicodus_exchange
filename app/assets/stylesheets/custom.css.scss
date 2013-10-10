@@ -6,9 +6,37 @@
         "foundation/components/alert-boxes";
 
 $faded: #6f6f6f;
+$footer-text: #999999;
+$footer-links: #555555;
+
+body {
+  background-image: url('cream_dust.png');
+}
 
 .center {
   text-align: center;
+}
+
+.hr-footer {
+  margin-top: 2.5em;
+  margin-bottom: .5em;
+}
+
+.footer-text {
+  font-size: .8em;
+  color: $footer-text; 
+}
+
+.extra-padding-left {
+  padding-left: 4em;
+}
+
+.large-margin-top {
+  margin-top: 2em;
+}
+
+footer a {
+  color: $footer-links;
 }
 
 .text-area {

@@ -11,7 +11,7 @@ describe AnswersController do
     fill_in 'Password', with: @user.password
     click_button 'Sign in'
     visit post_path(@post)
-    click_link 'answer post'
+    click_link 'answer'
   end
 
   # NEW PAGE
@@ -64,7 +64,7 @@ describe AnswersController do
     before do
       fill_in 'Answer:', with: 'Help is on the way!'
       click_button 'Submit'
-      click_link 'edit answer'
+      click_link 'edit'
     end
 
     it { should have_title('Edit answer') }

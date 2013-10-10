@@ -22,7 +22,7 @@
       <%= render 'shared/error_messages', object: @answer %>
 
       <%= f.label :content, 'Answer:' %>
-      <%= f.text_area :content, class: 'text-area large-text-input' %>
+      <%= f.text_area :content, class: 'text-area large-text-input', :autofocus => true %>
 
       <%= f.hidden_field :post_id, value: @post.id %>
 

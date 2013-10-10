@@ -1,5 +1,5 @@
 <div class="row">
-  <h2 class="center">Title Goes Here!</h2>
+  <h2 class="center">Salutations!</h2>
 </div>
 
 <%= render 'search_posts_form'%>
@@ -7,9 +7,8 @@
 <div class="row">
 
   <div class="large-offset-1 columns">
-    <h4 class="subheader">Results</h4>
+    <h4 class="subheader"><%= pluralize(@posts.count, "result") %> for "<%= @keywords %>"</h4>
   </div>
 
   <%= render 'post_results', posts: @posts %>
 </div>
-

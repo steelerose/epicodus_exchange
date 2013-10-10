@@ -4,7 +4,7 @@
       <%= render 'shared/error_messages', object: @comment %>
 
       <%= f.label :content, 'Comment:' %>
-      <%= f.text_area :content, class: 'text-area small-text-input', onKeyPress: 'return charLimit(this)', onKeyUp: 'return characterCount(this)' %>
+      <%= f.text_area :content, class: 'text-area small-text-input', onKeyPress: 'return charLimit(this)', onKeyUp: 'return characterCount(this)', :autofocus => true %>
       
       <%= f.hidden_field :id, value: @commentable.id %>
       <%= f.hidden_field :type, value: @commentable.class.to_s.downcase %>

@@ -3,16 +3,11 @@
 Created by [Julie Steele](http://juliesteele.site44.com/).
 
 
-FIX:
-- Update and uncomment final line in config/environments/production.rb (host => 'localhost:3000')
-- Misc. devise pages (remember me, forgot password, email new password, etc)
-- CanCan tests for create, update, destroy
-- Add tests for new comments AJAX functionality
-- Make sure EVERYTHING has been tested!!
-
 ADD:
-- Everywhere
-  - Prettify
+
+- Miscellaneous
+  - user and Posts search doesn't work until page refresh
+  - Make sure EVERYTHING has been tested!!
 
 - Posts Index Page (Home)
   - can choose to view all questions, resolved questions, or unresolved questions
@@ -20,13 +15,10 @@ ADD:
 - Posts Show Page (one post)
   - use AJAX for marking post as answered (should stay on page and remove button)
   - Any edits should redirect you to posts show page, *not* root path
-
-- Devise pages (sign in, etc)
-  - remove extra links from bottom of page
-  - check formatting ('remember me' box, etc)
   
 - Static Pages
-  - set up basic static pages (about, contact, help)
+  - Help
+  - Contact
 
 
 
@@ -36,6 +28,8 @@ AFTER ADMIN:
 - Miscellaneous
   - add tags to posts
   - add preview option to posts
+  - Misc. devise pages (remember me, forgot password, email new password, etc)
+  - add photo to user profile
 
 
 - Posts Index Page (Home)

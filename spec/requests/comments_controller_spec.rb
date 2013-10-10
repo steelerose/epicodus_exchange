@@ -11,10 +11,10 @@ describe CommentsController do
     click_button 'Sign in'
     @post = create(:post, user_id: @user.id)
     visit post_path(@post)
-    click_link 'answer post'
+    click_link 'answer'
     fill_in 'Answer:', with: 'Help is on the way!'
     click_button 'Submit'
-    click_link 'comment'
+    find(:xpath, "(//a[text()='comment'])[2]").click
   end
 
   # NEW PAGE

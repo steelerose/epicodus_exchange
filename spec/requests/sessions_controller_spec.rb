@@ -19,12 +19,9 @@ describe SessionsController do
     describe 'post should not have links to manage post, answers, or comments' do
       before { visit post_path(@post) }
 
-      it { should_not have_content 'edit post' }
-      it { should_not have_content 'delete post' }
+      it { should_not have_content 'edit' }
+      it { should_not have_content 'delete' }
       it { should_not have_button 'Issue resolved' }
-      it { should_not have_content 'edit answer' }
-      it { should_not have_content 'delete answer' }
-      it { should_not have_content 'delete comment' }
     end
 
     it 'redirects to the Sign In page from forbidden pages' do
@@ -32,13 +29,13 @@ describe SessionsController do
       find(:xpath, "(//a[text()='upvote'])[1]").click
       expect(page).to have_title 'Sign in'
       visit post_path(@post)
-      click_link 'answer post'
+      click_link 'answer'
       expect(page).to have_title 'Sign in'
       visit post_path(@post)
       find(:xpath, "(//a[text()='upvote'])[2]").click
       expect(page).to have_title 'Sign in'
       visit post_path(@post)
-      click_link 'comment'
+      find(:xpath, "(//a[text()='comment'])[1]").click
       expect(page).to have_title 'Sign in'
       #add comment to post
     end

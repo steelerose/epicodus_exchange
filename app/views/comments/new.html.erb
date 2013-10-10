@@ -2,14 +2,15 @@
 
 <div class="row">
   <div class="large-8 large-offset-2 small-12">
-    <%= form_for(@comment) do |f| %>
+    <%= form_for @comment do |f| %>
       <%= render 'shared/error_messages', object: @comment %>
 
       <%= f.label :content, 'Comment:' %>
-      <%= f.text_area :content, class: 'text-area' %>
-
-      <%= f.hidden_field :id, value: @commentable.id %>
-      <%= f.hidden_field :type, value: @commentable.class.to_s.downcase %>
+      <%= f.text_area :content, class: 'text-area small-text-input', :autofocus => true %>
+      <% unless @commentable.nil? %>
+        <%= f.hidden_field :id, value: @commentable.id %>
+        <%= f.hidden_field :type, value: @commentable.class.to_s.downcase %>
+      <% end %>
 
       <%= f.submit 'Submit', class: 'button small' %>
     <% end %>

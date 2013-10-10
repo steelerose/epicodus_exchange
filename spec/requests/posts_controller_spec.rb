@@ -77,20 +77,16 @@ describe PostsController do
   # SHOW PAGE
   describe 'Show page' do
     before do
-      @post = create(:post, user_id: @user.id)
-      @post.answers.create(content: 'I can help!', user_id: @user.id)
-      @post.answers.first.comments.create(content: 'No you can\'t', user_id: @user.id)
+      @post = create(:post, user: @user)
+      create(:answer, post: @post)
+      create(:answer, post: @post, user: @user)
+      @post.answers.first.comments.create(content: 'No you can\'t', user: @user)
       visit root_path
       click_link @post.name
     end
 
     it { should have_title('View post') }
     it { should have_content(@post.name) }
-
-    it 'should allow you to delete a post' do
-      expect { click_link 'delete post' }.to change(Post, :count).by(-1)
-      expect(page).not_to have_title('|')
-    end
 
     it 'should allow you to mark a post as \'answered\'' do
       click_button 'Issue resolved'
@@ -105,17 +101,17 @@ describe PostsController do
     end
 
     it 'should allow you to delete an answer' do
-      expect { click_link 'delete answer' }.to change(Answer, :count).by(-1)
+      expect { find(:xpath, "(//a[text()='delete'])[2]").click }.to change(Answer, :count).by(-1)
     end
 
     it 'should allow you to upvote an answer' do
-      find(:xpath, "(//a[text()='upvote'])[2]").click
+      click_link 'upvote'
       @post.answers.first.reload
       @post.answers.first.votes.count.should eq 1
     end
 
     it 'should allow you to delete a comment' do
-      expect { click_link 'delete comment' }.to change(Comment, :count).by(-1)
+      expect { find(:xpath, "(//a[text()='delete'])[1]").click }.to change(Comment, :count).by(-1)
     end
   end
 
@@ -125,7 +121,7 @@ describe PostsController do
       @post = create(:post, user_id: @user.id)
       visit root_path
       click_link @post.name
-      click_link 'edit post'
+      click_link 'edit'
     end
 
     it { should have_title('Edit post') }
