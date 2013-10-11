@@ -9,6 +9,8 @@ $faded: #6f6f6f;
 $footer-text: #999999;
 $footer-links: #555555;
 $code: #000082;
+$logo-1: #2ba6cb;
+$logo-2: #2284a1;
 
 body {
   background-image: image-url('cream_dust.png');
@@ -16,6 +18,18 @@ body {
 
 pre {
   color: $code;
+}
+
+.logo-color-1 {
+  color: $logo-1;
+}
+
+.logo-color-2 {
+  color: $logo-2;
+}
+
+.panel {
+  border-color: $logo-1;
 }
 
 .center {
@@ -30,6 +44,15 @@ pre {
 .footer-text {
   font-size: .8em;
   color: $footer-text; 
+}
+
+.align-right {
+  text-align: right;
+}
+
+.extra-padding-right {
+  padding-right: 8em;
+  padding-left: 6.5em;
 }
 
 .extra-padding-left {

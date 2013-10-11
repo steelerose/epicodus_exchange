@@ -1,7 +1,7 @@
 <nav class="top-bar">
   <ul class="title-area">
     <li class="name active">
-      <h1><%= link_to 'Epicodus Exchange', root_path %></h1>
+      <h1><%= link_to '<span class="logo-color-1">Ep</span><span class="logo-color-2">icodus</span> <span class="logo-color-1">Ex</span><span class="logo-color-2">change</span>'.html_safe, root_path %></h1>
     </li>
     <li class="toggle-topbar menu-icon"><a><span>Menu</span></a></li>
   </ul>
@@ -9,20 +9,20 @@
   <section class="top-bar-section">
     <ul class="right">
       <li class="divider hide-for-small"></li>
-      <li><%= link_to 'Roster', '/users' %></li>
+      <li><%= link_to '<span class="logo-color-1">R</span><span class="logo-color-2">oster</span>'.html_safe, '/users' %></li>
       <li class="divider hide-for-small"></li>
       <% if user_signed_in? %>
-        <li><%= link_to 'Add post', new_post_path %></li>
+        <li><%= link_to '<span class="logo-color-1">A</span><span class="logo-color-2">dd post</span>'.html_safe, new_post_path %></li>
         <li class="divider hide-for-small"></li>
-        <li><%= link_to 'Profile', current_user %></li>
+        <li><%= link_to '<span class="logo-color-1">P</span><span class="logo-color-2">rofile</span>'.html_safe, current_user %></li>
         <li class="divider hide-for-small"></li>
-        <li><%= link_to 'Settings', '/users/edit' %></li>
+        <li><%= link_to '<span class="logo-color-1">S</span><span class="logo-color-2">ettings</span>'.html_safe, '/users/edit' %></li>
         <li class="divider hide-for-small"></li>
-        <li><%= link_to 'Sign out', '/users/sign_out', method: :delete %></li>
+        <li><%= link_to '<span class="logo-color-1">S</span><span class="logo-color-2">ign out</span>'.html_safe, '/users/sign_out', method: :delete %></li>
       <% else %>
-        <li><%= link_to 'Sign up', '/users/sign_up' %></li>
+        <li><%= link_to '<span class="logo-color-1">S</span><span class="logo-color-2">ign up</span>'.html_safe, '/users/sign_up' %></li>
         <li class="divider hide-for-small"></li>
-        <li><%= link_to 'Sign in', '/users/sign_in' %></li>
+        <li><%= link_to '<span class="logo-color-1">S</span><span class="logo-color-2">ign in</span>'.html_safe, '/users/sign_in' %></li>
       <% end %>
       <li class="divider hide-for-small"></li>
     </ul>
