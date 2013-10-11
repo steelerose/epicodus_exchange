@@ -11,9 +11,10 @@ $footer-links: #555555;
 $code: #000082;
 $logo-1: #2ba6cb;
 $logo-2: #2284a1;
+$background: #555555;
 
 body {
-  background-image: image-url('cream_dust.png');
+  background-image: image-url('grey_wash_wall.png');
 }
 
 pre {
@@ -30,6 +31,20 @@ pre {
 
 .panel {
   border-color: $logo-1;
+  border-radius: 5px;
+}
+
+.super-panel {
+  background-image: image-url('cream_dust.png');
+  border-color: $logo-2;
+  border-width: 2px;
+  border-radius: 5px;
+  margin: 4em;
+}
+
+.debug-panel {
+  margin-top: 2em;
+  border-radius: 0;
 }
 
 .center {
