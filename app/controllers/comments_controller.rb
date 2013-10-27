@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
-  authorize_resource
   
   def new
+    authorize! :create, Comment
     if params[:type] == 'answer'
       @commentable = Answer.find(params[:id])
     else
@@ -19,6 +19,7 @@ class CommentsController < ApplicationController
       @comment = @post.comments.new(comment_params)
     end
     @comment.user = current_user
+    authorize! :create, @comment
     if @comment.save
       respond_to do |format|
         if params[:comment][:type] == 'answer'
@@ -38,6 +39,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find(params[:id])
+    authorize! :destroy, @comment
     @comment.destroy
     if @comment.commentable_type == 'Post'
       redirect_to post_path(@comment.commentable)

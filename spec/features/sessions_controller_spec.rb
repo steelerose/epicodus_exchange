@@ -26,17 +26,12 @@ describe SessionsController do
 
     it 'redirects to the Sign In page from forbidden pages' do
       visit post_path(@post)
-      find(:xpath, "(//a[text()='upvote'])[1]").click
-      expect(page).to have_title 'Sign in'
-      visit post_path(@post)
-      click_link 'answer'
-      expect(page).to have_title 'Sign in'
-      visit post_path(@post)
-      find(:xpath, "(//a[text()='upvote'])[2]").click
-      expect(page).to have_title 'Sign in'
-      visit post_path(@post)
-      find(:xpath, "(//a[text()='comment'])[1]").click
-      expect(page).to have_title 'Sign in'
+      #manually try to answer
+      page.should_not have_link 'upvote'
+      page.should_not have_link 'answer'
+      #should not have upvote answer
+      page.should_not have_link 'comment'
+      #test manually answer, upvote, and comment
       #add comment to post
     end
 

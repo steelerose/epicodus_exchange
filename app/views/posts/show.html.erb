@@ -13,15 +13,17 @@
       <%= link_to "#{@post.user.first_name} #{@post.user.last_name}", user_path(@post.user), target: '_blank' %>
        | <%= @post.created_at.strftime("%-d %b '%y") %>
        | <%= pluralize(@post.votes.count, 'vote') %>
-      <% if current_user != @post.user %>
+      <% if can? :upvote, @post %>
          | <%= link_to 'upvote', votes_path(object: @post, sym: :Post), method: :post %>
       <% end %>
-       | <%= link_to 'answer', new_answer_path(post: @post) %>
-       | <%= link_to 'comment', new_comment_path(id: @post.id, type: 'post'), remote: true, class: 'new-comment-request' %>
-      <% if current_user == @post.user || (current_user && current_user.admin?) %>
+      <% if can? :create, Answer %>
+         | <%= link_to 'answer', new_answer_path(post: @post) %>
+         | <%= link_to 'comment', new_comment_path(id: @post.id, type: 'post'), remote: true, class: 'new-comment-request' %>
+      <% end %>
+      <% if can? :update, @post %>
          -- <%= link_to 'edit', edit_post_path(@post) %>
       <% end %>
-      <% if (current_user && current_user.admin?) %>
+      <% if can? :destroy, @post %>
          -- <%= link_to 'delete', @post, method: :delete, data: { confirm: 'Delete post?' } %>
       <% end %>
     </h6>

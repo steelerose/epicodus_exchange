@@ -25,14 +25,17 @@ describe VotesController do
 
     it 'should only let you vote once per post' do
       click_link 'upvote'
-      expect { click_link 'upvote' }.not_to change(Vote, :count)
+      page.should_not have_content 'upvote'
+      #manually upvote
     end
 
     it 'should only let you vote once per answer' do
       @post.answers.create(content: 'Solution to foo', user: create(:user))
       visit post_path(@post)
-      find(:xpath, "(//a[text()='upvote'])[2]").click
-      expect { find(:xpath, "(//a[text()='upvote'])[2]").click }.not_to change(Vote, :count)
+      find(:xpath, "(//a[text()='upvote'])[1]").click     
+      click_link 'upvote'
+      page.should_not have_content 'upvote'
+      #manually upvote
     end
   end
 end

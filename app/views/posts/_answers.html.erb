@@ -26,13 +26,15 @@
               <%= link_to "#{answer.user.first_name} #{answer.user.last_name}", user_path(answer.user), target: '_blank' %>
                | <%= answer.created_at.strftime("%-d %b '%y") %>
                | <%= pluralize(answer.votes.count, "vote") %>
-              <% if current_user != answer.user %>
+              <% if can? :upvote, answer %>
                  | <%= link_to 'upvote', votes_path(object: answer, sym: :Answer), method: :post %>
               <% end %>
-               | <%= link_to 'comment', new_comment_path(id: answer, type: 'answer'), remote: true, class: 'new-comment-request' %>
-              <% if current_user == answer.user %>
-               -- <%= link_to 'edit', edit_answer_path(answer) %>
-               -- <%= link_to 'delete', answer_path(answer_id: answer.id), method: :delete, data: { confirm: 'Delete answer?' } %>
+              <% if can? :create, Comment %>
+                 | <%= link_to 'comment', new_comment_path(id: answer, type: 'answer'), remote: true, class: 'new-comment-request' %>
+              <% end %>
+              <% if can? :update, answer %>
+                 -- <%= link_to 'edit', edit_answer_path(answer) %>
+                 -- <%= link_to 'delete', answer_path(answer_id: answer.id), method: :delete, data: { confirm: 'Delete answer?' } %>
               <% end %>
             </h6>
             <div class="new-comment-form" id="answer-form<%= answer.id %>">

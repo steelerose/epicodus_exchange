@@ -1,13 +1,14 @@
 class PostsController < ApplicationController
-  authorize_resource
 
   def new
     @post = Post.new(user: current_user)
+    authorize! :create, @post
   end
 
   def create
     @post = Post.new(post_params)
     @post.user = current_user
+    authorize! :create, @post
     if @post.save
       flash[:success] = 'Post created'
       redirect_to root_path
@@ -37,6 +38,7 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
+    authorize! :update, @post
     if @post.update(post_params)
       flash[:success] = 'Edit confirmed'
       redirect_to root_path
@@ -46,7 +48,9 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    Post.find(params[:id]).destroy
+    post = Post.find(params[:id])
+    authorize! :destroy, post
+    post.destroy
     redirect_to root_path
   end
 

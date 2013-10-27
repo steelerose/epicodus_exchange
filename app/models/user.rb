@@ -31,6 +31,10 @@ class User < ActiveRecord::Base
     results.uniq
   end
 
+  def voted_on(object)
+    Vote.where(user: self, votable: object).length > 0
+  end
+
 private
 
   def standardize_url

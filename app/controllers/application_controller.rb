@@ -3,11 +3,12 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   include SessionsHelper
+  
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
   rescue_from CanCan::AccessDenied do |exception|
     if current_user.nil?
-      redirect_to '/users/sign_in', alert: exception.message
+      redirect_to '/users/sign_in', alert: 'Please sign in'
     else
       redirect_to root_path, alert: exception.message
     end

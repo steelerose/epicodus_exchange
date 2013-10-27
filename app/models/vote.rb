@@ -7,7 +7,7 @@ class Vote < ActiveRecord::Base
  # private
 
  # 	def verify_honest_vote
- # 		binding.pry
+ # 		# binding.pry
  # 		self.user != self.votable.user
  # 	end
 end

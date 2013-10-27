@@ -27,7 +27,7 @@ describe User do
   end
 
   describe 'user rank' do
-    before do
+    before :each do
       @user1 = create(:user)
       @user2 = create(:user)
       @user3 = create(:user)
@@ -48,7 +48,8 @@ describe User do
     end
 
     it 'should be able to be ranked by karma' do
-      User.by_rank.should eq [@user3, @user2, @user4, @user1] || [@user3, @user4, @user2, @user1]
+      @user4.destroy
+      User.by_rank.should eq [@user3, @user2, @user1]
     end
 
     it 'should have rank based on karma' do
@@ -101,5 +102,33 @@ describe User do
     user = create(:user, website: '')
     user.reload
     user.website.should eq ''
+  end
+
+  describe 'voted_on' do
+    it 'should return true if the user has already voted on a post' do
+      user = create(:user)
+      post = create(:post)
+      Vote.create(user: user, votable: post)
+      user.voted_on(post).should be_true
+    end
+
+    it 'should return true if the user has already voted on an answer' do
+      user = create(:user)
+      answer = create(:answer)
+      Vote.create(user: user, votable: answer)
+      user.voted_on(answer).should be_true
+    end
+
+    it 'should return false if the user has not yet voted on a post' do
+      user = create(:user)
+      post = create(:post)
+      user.voted_on(post).should be_false
+    end
+
+    it 'should return false if the user has not yet voted on an answer' do
+      user = create(:user)
+      answer = create(:answer)
+      user.voted_on(answer).should be_false
+    end
   end
 end

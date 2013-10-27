@@ -1,14 +1,15 @@
 class AnswersController < ApplicationController
-  authorize_resource
   
   def new
     @post = Post.find(params[:post])
     @answer = @post.answers.new
+    authorize! :create, @answer
   end
 
   def create
     @post = Post.find(params[:answer][:post_id])
     @answer = @post.answers.new(answer_params)
+    authorize! :create, @answer
     @answer.user = current_user
     if @answer.save
       flash[:success] = 'Answer added'
@@ -25,8 +26,8 @@ class AnswersController < ApplicationController
 
   def update
     @answer = Answer.find(params[:answer][:answer_id])
-    @answer.update(answer_params)
-    if @answer.save
+    authorize! :update, @answer
+    if @answer.update(answer_params)
       redirect_to post_path(@answer.post)
     else
       render 'edit'
@@ -35,6 +36,7 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer = Answer.find(params[:answer_id])
+    authorize! :destroy, @answer
     @answer.destroy
     redirect_to post_path(@answer.post)
   end
