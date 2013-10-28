@@ -41,7 +41,7 @@ class PostsController < ApplicationController
     authorize! :update, @post
     if @post.update(post_params)
       flash[:success] = 'Edit confirmed'
-      redirect_to root_path
+      redirect_to post_path @post
     else
       render 'edit'
     end
@@ -51,6 +51,7 @@ class PostsController < ApplicationController
     post = Post.find(params[:id])
     authorize! :destroy, post
     post.destroy
+    flash[:success] = 'Post deleted'
     redirect_to root_path
   end
 

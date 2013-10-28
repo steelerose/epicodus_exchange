@@ -1,4 +1,4 @@
-<% if can? :mark_answered, @post %>
+<% if !@post.answered? && (can? :mark_answered, @post) %>
 	<%= form_for(@post) do |f| %>
 	  <%= f.hidden_field :answered, value: true %>
 	  <%= f.submit 'Issue resolved', class: 'button tiny extra-margin-top no-margin-bottom' %>

@@ -19,8 +19,7 @@ describe Ability do
 
       it { should be_able_to(:update, Post.new(user: user), Answer.new(user: user), Comment.new(user: user), Vote.new(user: user)) }
       it { should_not be_able_to(:update, Post.new, Answer.new, Comment.new, Vote.new) }
-      it { should be_able_to(:destroy, Answer.new(user: user), Comment.new(user: user)) }
-      it { should_not be_able_to(:destroy, Post.new(user: user)) }
+      it { should be_able_to(:destroy, Post.new(user: user), Answer.new(user: user), Comment.new(user: user)) }
     end
 
     describe 'interacting with other user\'s content' do

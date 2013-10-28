@@ -79,7 +79,7 @@ feature 'view post' do
   scenario { should have_content @post.content }
   scenario { should have_link "#{@post.user.first_name} #{@post.user.last_name}" }
 
-  context 'admin views post' do
+  context 'as admin' do
     before :each do
       @user.update(admin: true)
       sign_in @user
@@ -92,14 +92,9 @@ feature 'view post' do
     scenario { should have_link 'upvote' }
     scenario { should have_link 'comment' }
     scenario { should have_link 'answer' }
-
-    scenario 'resolved post should not have Issue resolved button' do
-      click_button 'Issue resolved'
-      page.should_not have_button 'Issue resolved'
-    end
   end
 
-  context 'user views own post' do
+  context 'as post creator' do
     before :each do
       @post.update(user: @user)
       sign_in @user
@@ -108,18 +103,13 @@ feature 'view post' do
 
     scenario { should have_button 'Issue resolved' }
     scenario { should have_link 'edit' }
-    scenario { should_not have_link 'delete' }
+    scenario { should have_link 'delete' }
     scenario { should_not have_link 'upvote' }
     scenario { should have_link 'comment' }
     scenario { should have_link 'answer' }
-
-    scenario 'resolved post should not have Issue resolved button' do
-      click_button 'Issue resolved'
-      page.should_not have_button 'Issue resolved'
-    end
   end
 
-  context 'non-admin viewing another user\'s post' do
+  context 'as another user' do
     before :each do
       sign_in @user
       visit post_path @post
@@ -133,7 +123,7 @@ feature 'view post' do
     scenario { should have_link 'answer' }
   end
 
-  context 'not logged in viewing post' do
+  context 'without logging in' do
 
     scenario { should_not have_button 'Issue resolved' }
     scenario { should_not have_link 'edit' }
@@ -175,7 +165,7 @@ feature 'view all posts' do
     end
   end
 
-  scenario 'user can sort by post name or content' do
+  scenario 'user can search by post name or content' do
 
   end
 
@@ -190,64 +180,182 @@ feature 'view all posts' do
   scenario 'user can view all posts' do
 
   end
-
 end
 
-
-describe PostsController do
+# MARK RESOLVED
+feature 'mark post as resolved' do
   subject { page }
 
-  before do
+  before :each do
     @user = create(:user)
-    sign_in(@user)
+    @post = create(:post)
+    visit post_path @post
   end
 
-  #mark post as answered (Issue resolved)
-  #remove Issue resolved link after selecting
-  #upvote post
-  #edit post
-  #delete post
+  scenario 'as admin' do
+    @user.update(admin: true)
+    sign_in @user
+    visit post_path @post
+    click_button 'Issue resolved'
+    page.should_not have_button 'Issue resolved'
+  end
 
-  # EDIT PAGE
-  describe 'Edit page' do
-    before do
-      @post = create(:post, user_id: @user.id)
-      visit root_path
-      click_link @post.name
-      click_link 'edit'
+  scenario 'as post creator' do
+    @post.update(user: @user)
+    sign_in @user
+    visit post_path @post
+    click_button 'Issue resolved'
+    page.should_not have_button 'Issue resolved'
+  end
+
+  scenario 'as another user' do
+    sign_in @user
+    visit post_path @post
+    page.should_not have_button 'Issue resolved'
+  end
+
+  scenario 'without logging in' do
+    visit post_path @post
+    page.should_not have_button 'Issue resolved'
+  end
+end
+
+# EDIT POST
+feature 'edit post' do
+  subject { page }
+
+  before :each do
+    @user = create(:user)
+    @post = create(:post)
+    visit edit_post_path @post
+  end
+
+  scenario 'by visiting links' do
+    @post.update(user: @user)
+    sign_in @user
+    visit post_path @post
+    click_link 'edit'
+    page.should have_title 'Edit post'
+  end
+
+  context 'as admin' do
+    before :each do
+      @user.update(admin: true)
+      sign_in @user
+      visit edit_post_path @post
+      fill_in 'post_name', with: 'HALP, Part II'
+      fill_in 'post_content', with: 'Here\'s my issue...'
+      click_button 'Save changes'
     end
 
-    it { should have_title('Edit post') }
-    it { should have_content(@post.name) }
+    scenario { should have_content 'HALP, Part II' }
+    scenario { should have_content 'Here\'s my issue...' }
+    scenario { should have_content 'Edit confirmed' }
+  end
 
-    describe 'with invalid information' do
-      before do
-        fill_in 'Post title:', with: ''
-        click_button 'Save changes'
-      end
-
-      it { should have_title('Edit post') }
-      it { should have_content('error') }
-
-      it 'should not update the post in the database' do
-        @post.reload
-        @post.name.should_not eq ''
-      end
+  context 'as post creator, with valid content' do
+    before :each do
+      @post.update(user: @user)
+      sign_in @user
+      visit edit_post_path @post
+      fill_in 'post_name', with: 'HALP, Part II'
+      fill_in 'post_content', with: 'Here\'s my issue...'
+      click_button 'Save changes'
     end
 
-    describe 'with valid information' do
-      before do
-        fill_in 'Post title:', with: 'new problem'
-        click_button 'Save changes'
-      end
+    scenario { should have_content 'HALP, Part II' }
+    scenario { should have_content 'Here\'s my issue...' }
+    scenario { should have_content 'Edit confirmed' }
+  end
 
-      it { should_not have_title('|') }
-      it { should have_content('Edit confirmed') }
-
-      it 'should update the post in the database' do
-        @post.reload
-        @post.name.should eq 'new problem'
-      end
+  context 'as post creator, with invalid content' do
+    before :each do
+      @post.update(user: @user)
+      sign_in @user
+      visit edit_post_path @post
+      fill_in 'post_name', with: ''
+      click_button 'Save changes'
     end
+
+    scenario { should have_content 'error' }
+  end
+
+  context 'as another user' do
+    before :each do
+      sign_in @user
+      page.driver.submit :patch, post_path(@post), {}
+    end
+
+    scenario { should have_content 'not authorized' }
+
+  end
+
+  context 'without logging in' do
+    scenario { should have_content 'Please sign in' }
+
+    scenario 'directly updating post' do
+      page.driver.submit :patch, post_path(@post), {}
+      page.should have_content 'Please sign in'
+    end
+  end
+end
+
+# DELETE POST
+feature 'delete post' do
+  subject { page }
+
+  before :each do
+    @user = create(:user)
+    @post = create(:post)
+  end
+
+  scenario 'by visiting links' do
+    @post.update(user: @user)
+    sign_in @user
+    visit post_path @post
+    click_link 'delete'
+    page.should_not have_title '|'
+  end
+
+  context 'as admin' do
+    before :each do
+      @user.update(admin: true)
+      sign_in @user
+      visit post_path @post
+      click_link 'delete'
+    end
+
+    scenario { should_not have_content @post.name }
+    scenario { should have_content 'Post deleted' }
+  end
+
+  context 'as post creator' do
+    before :each do
+      @post.update(user: @user)
+      sign_in @user
+      visit post_path @post
+      click_link 'delete'
+    end
+
+    scenario { should_not have_content @post.name }
+    scenario { should have_content 'Post deleted' }
+  end
+
+  context 'as another user' do
+    before :each do
+      sign_in @user
+      page.driver.submit :delete, post_path(@post), {}
+    end
+
+    scenario { should have_content 'not authorized' }
+
+  end
+
+  context 'without logging in' do
+    before :each do
+      page.driver.submit :delete, post_path(@post), {}
+    end
+
+    scenario { should have_content 'Please sign in' }
   end
 end

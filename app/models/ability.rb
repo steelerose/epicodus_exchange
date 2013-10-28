@@ -10,14 +10,13 @@ class Ability
       can :read, :all
       can :create, :all
       can :update, :all, user_id: user.id
-      can :destroy, Answer, user_id: user.id
-      can :destroy, Comment, user_id: user.id
+      can :destroy, :all, user_id: user.id
     else
       can :read, :all
     end
 
     can :mark_answered, Post do |post|
-      (user.admin? || user == post.user) && !post.answered?
+      user.admin? || user == post.user
     end
 
     can :upvote, Post do |post|
@@ -31,14 +30,3 @@ class Ability
   end
 end
 
-
-# Posts, Answers, Comments
-#    guest:         read
-#    user:          read, create
-#    correct user:  read, create, update
-#    admin:         manage
-
-# Users
-#    guest:         read, create
-#    correct user:  read, create, update, destroy
-#    admin:         manage
