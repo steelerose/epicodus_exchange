@@ -1,31 +1,36 @@
 require 'spec_helper'
 
-describe UsersController do
-  subject { page }
+feature 'view user' do
+  #should show name
+  #should link to github
+  #should link to website
+  #should show points
+  #should show rank
+  #should show all posts
 
-  before do
-    @user = create(:user)
-    @post = create(:post, user: @user)
-    @answer = create(:answer, user: @user)
-    @comment = create(:comment, user: @user)
-    new_id = @user.id.to_i + 1
-    @answer.votes.create(user_id: new_id)
+  context 'as admin' do
+    #should be able to edit
+    #should be able to delete
   end
 
-  # SHOW PAGE
-  describe 'Show page' do
-    before { visit user_path(@user) }
-
-    it { should have_content "#{@user.first_name} #{@user.last_name}" }
-
-    it 'should list the user\'s posts' do
-      @user.posts.each { |post| expect(page).to have_content post.name }
-    end
+  context 'viewing own page' do
+    #should be able to edit
+    #should be able to delete
   end
 
+  context 'viewing another user\'s page' do
+    #should not be able to edit
+    #should not be able to delete
+  end
 
-
-
-  # INDEX PAGE
-
+  context 'without logging in`' do
+    #should not be able to edit
+    #should not be able to delete
+  end
 end
+
+feature 'view all users' do
+  #should be able to search by name or github
+  #should be able to view current students, etc
+end
+
