@@ -21,6 +21,7 @@ class CommentsController < ApplicationController
     @comment.user = current_user
     authorize! :create, @comment
     if @comment.save
+      flash[:success] = 'Comment added'
       respond_to do |format|
         if params[:comment][:type] == 'answer'
           format.html { redirect_to post_path(@answer.post) }
@@ -41,6 +42,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     authorize! :destroy, @comment
     @comment.destroy
+    flash[:success] = 'Comment deleted'
     if @comment.commentable_type == 'Post'
       redirect_to post_path(@comment.commentable)
     else

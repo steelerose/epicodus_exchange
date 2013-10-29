@@ -5,7 +5,7 @@
         <li>
           <hr class="super-thin">
           <span class="comment-content"><%= comment.content %></span>
-          <p class="comment-info">
+          <p class="comment-info post-comments">
             <%= link_to "#{comment.user.first_name} #{comment.user.last_name}", user_path(comment.user), target: '_blank' %>
              | <%= comment.created_at.strftime("%-d %b '%y") %>
             <% if can? :destroy, comment %>
