@@ -20,14 +20,20 @@ In your browser
 ------------
 
 
-ADD
-- mark answer as correct
-- create announcements
-- if admin, profile page has 'Make admin' button
-- if admin, profile page has 'Delete account' button
-- can show only answered/unanswered/all posts
-- add user types: prospective student, class of __ or student/alum, etc
+TO ADD
+  ADMIN
+  - can create announcement (type of post)
+  - profile page has 'Make admin' button
+  - profile page has 'Delete account' button
+  - can mark answer as correct
+  POST INDEX
+  - can show only answered/unanswered/all
+  USERS TABLE
+  - add user types: prospective student, class of __ or student/alum, etc
 
-
-FIX
-- new/edit answer should be AJAX
+TO FIX
+  ANSWER
+  - new/edit features should be AJAX
+  USER
+  - validate fields when updating (name can't be blank, etc)
+  - successful edit redirects to profile page
