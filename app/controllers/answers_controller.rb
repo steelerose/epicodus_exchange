@@ -28,6 +28,7 @@ class AnswersController < ApplicationController
     @answer = Answer.find(params[:answer][:answer_id])
     authorize! :update, @answer
     if @answer.update(answer_params)
+      flash[:success] = 'Edit confirmed'
       redirect_to post_path(@answer.post)
     else
       render 'edit'
@@ -38,6 +39,7 @@ class AnswersController < ApplicationController
     @answer = Answer.find(params[:answer_id])
     authorize! :destroy, @answer
     @answer.destroy
+    flash[:success] = 'Answer deleted'
     redirect_to post_path(@answer.post)
   end
 

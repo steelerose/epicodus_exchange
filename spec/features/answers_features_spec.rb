@@ -108,7 +108,7 @@ feature 'edit answer' do
       sign_in @user
       visit post_path @post
       within('.answer-options') { click_link 'edit' }
-      fill_in 'answer_name', with: ''
+      fill_in 'answer_content', with: ''
       click_button 'Save changes'
     end
 
@@ -118,7 +118,7 @@ feature 'edit answer' do
   context 'as another user' do
     before :each do
       sign_in @user
-      page.driver.submit :patch, answer_path(@answer), {}
+      page.driver.submit :patch, answer_path(id: @post.id, answer: { content: 'answer-content', answer_id: @answer.id }), {}
     end
 
     scenario { should have_content 'not authorized' }
@@ -132,75 +132,72 @@ feature 'edit answer' do
     end
 
     scenario 'directly updating answer' do
-      page.driver.submit :patch, answer_path(@answer), {}
+      page.driver.submit :patch, answer_path(id: @post.id, answer: { content: 'answer-content', answer_id: @answer.id }), {}
       page.should have_content 'Please sign in'
     end
   end
 end
 
+# DELETE ANSWER
+feature 'delete answer' do
+  subject { page }
 
+  before :each do
+    @user = create(:user)
+    @post = create(:post)
+    @answer = create(:answer, post: @post)
+  end
 
+  scenario 'by visiting links' do
+    @answer.update(user: @user)
+    sign_in @user
+    visit post_path @post
+    within('.answer-options') { click_link 'delete' }
+    page.should have_title 'View post'
+  end
 
+  context 'as admin' do
+    before :each do
+      @user.update(admin: true)
+      sign_in @user
+      visit post_path @post
+      within('.answer-options') { click_link 'delete' }
+    end
 
-# # DELETE ANSWER
-# feature 'delete answer' do
-#   subject { page }
+    scenario { should_not have_content @answer.content }
+    scenario { should have_content 'Answer deleted' }
+  end
 
-#   before :each do
-#     @user = create(:user)
-#     @answer = create(:answer)
-#   end
+  context 'as answer creator' do
+    before :each do
+      @answer.update(user: @user)
+      sign_in @user
+      visit post_path @post
+      within('.answer-options') { click_link 'delete' }
+    end
 
-#   scenario 'by visiting links' do
-#     @answer.update(user: @user)
-#     sign_in @user
-#     visit answer_path @answer
-#     click_link 'delete'
-#     page.should_not have_title '|'
-#   end
+    scenario { should_not have_content @answer.content }
+    scenario { should have_content 'Answer deleted' }
+  end
 
-#   context 'as admin' do
-#     before :each do
-#       @user.update(admin: true)
-#       sign_in @user
-#       visit answer_path @answer
-#       click_link 'delete'
-#     end
+  context 'as another user' do
+    before :each do
+      sign_in @user
+      page.driver.submit :delete, answer_path(id: @post.id, answer_id: @answer.id), {}
+    end
 
-#     scenario { should_not have_content @answer.name }
-#     scenario { should have_content 'answer deleted' }
-#   end
+    scenario { should have_content 'not authorized' }
 
-#   context 'as answer creator' do
-#     before :each do
-#       @answer.update(user: @user)
-#       sign_in @user
-#       visit answer_path @answer
-#       click_link 'delete'
-#     end
+  end
 
-#     scenario { should_not have_content @answer.name }
-#     scenario { should have_content 'answer deleted' }
-#   end
+  context 'without logging in' do
+    before :each do
+      page.driver.submit :delete, answer_path(id: @post.id, answer_id: @answer.id), {}
+    end
 
-#   context 'as another user' do
-#     before :each do
-#       sign_in @user
-#       page.driver.submit :delete, answer_path(@answer), {}
-#     end
-
-#     scenario { should have_content 'not authorized' }
-
-#   end
-
-#   context 'without logging in' do
-#     before :each do
-#       page.driver.submit :delete, answer_path(@answer), {}
-#     end
-
-#     scenario { should have_content 'Please sign in' }
-#   end
-# end
+    scenario { should have_content 'Please sign in' }
+  end
+end
 
 
 
