@@ -1,17 +1,29 @@
 require 'spec_helper'
 
-describe StaticPagesController do
+feature 'header' do
   subject { page }
 
-  it 'should have functional links' do
-    visit root_path
-    click_link 'Epicodus Exchange'
-    expect(page).to have_title('Epicodus Exchange')
+  context 'before logging in' do
+    before { visit root_path }
+    
+    scenario { should have_link 'Sign in' }
+    scenario { should have_link 'Sign up' }
+    scenario { should_not have_link 'Sign out' }
+    scenario { should_not have_link 'Profile' }
+    scenario { should_not have_link 'Settings' }
   end
 
-  # it 'should link back to the creator\'s website' do
-  #   visit root_path
-  #   click_link 'Julie Steele'
-  #   current_url.should eq 'http://juliesteele.site44.com/'
-  # end
+  context 'before logging in' do
+    before :each do
+      user = create(:user)
+      sign_in user
+      visit root_path
+    end
+
+    scenario { should_not have_link 'Sign in' }
+    scenario { should_not have_link 'Sign up' }
+    scenario { should have_link 'Sign out' }
+    scenario { should have_link 'Profile' }
+    scenario { should have_link 'Settings' }
+  end
 end
