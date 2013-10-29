@@ -37,3 +37,7 @@ TO FIX
   USER
   - validate fields when updating (name can't be blank, etc)
   - successful edit redirects to profile page
+  NAVBAR
+  - dropdown menu needs to work (switch site to Bootstrap?)
+  GENERAL
+  - change font for posts/answers/etc

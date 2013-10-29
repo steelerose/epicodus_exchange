@@ -9,6 +9,7 @@ class Ability
       can :create, :all
       can :update, :all
       can :destroy, :all
+      can :admin_destroy, User
     elsif !user.id.nil?
       can :read, :all
       can :create, :all
@@ -29,7 +30,6 @@ class Ability
     can :upvote, Answer do |answer|
       !user.id.nil? && user != answer.user && !user.voted_on(answer)
     end
-
   end
 end
 

@@ -77,54 +77,54 @@ end
 #   end
 # end
 
-# feature 'delete user' do
-#   subject { page }
+feature 'delete user' do
+  subject { page }
 
-#   before :each do
-#     @user = create(:user)
-#   end
+  before :each do
+    @user = create(:user)
+  end
 
-#   context 'as admin' do
-#     before :each do
-#       @user2 = create(:user)
-#       @user2.update(admin: true)
-#       sign_in @user2
-#     end
+  context 'as admin' do
+    before :each do
+      @user2 = create(:user)
+      @user2.update(admin: true)
+      sign_in @user2
+    end
 
-#     scenario 'deleting other user' do
-#       visit user_path @user
-#       click_button 'Delete account'
-#       page.should have_content 'User account deleted'
-#     end
+    scenario 'deleting other user' do
+      visit user_path @user
+      click_button 'Delete account'
+      page.should have_content 'Account deleted'
+    end
 
-#     scenario 'deleting self (other admins exist)' do
-#       @user.update(admin: true)
-#       visit user_path @user2
-#       click_button 'Delete account'
-#       page.should have_content 'Your account has been deleted'
-#     end
+    scenario 'deleting self (other admins exist)' do
+      @user.update(admin: true)
+      visit user_path @user2
+      click_button 'Delete account'
+      page.should have_content 'Your account has been deleted'
+    end
 
-#     scenario 'deleting self (no other admins exist)' do
-#       visit user_path @user2
-#       click_button 'Delete account'
-#       page.should have_content 'Please assign a new admin before deleting your account'
-#     end
-#   end
+    scenario 'deleting self (no other admins exist)' do
+      visit user_path @user2
+      click_button 'Delete account'
+      page.should have_content 'Please assign a new admin before deleting your account'
+    end
+  end
 
-#   context 'as non-admin' do
-#     before :each do
-#       sign_in @user
-#       visit user_path @user
-#     end
+  context 'as non-admin' do
+    before :each do
+      sign_in @user
+      visit user_path @user
+    end
 
-#     scenario 'by visiting path' do
-#       # visit delete path
-#       page.should have_content 'Not authorized'
-#     end
+    scenario 'by visiting path' do
+      page.driver.submit :delete, user_path(@user), {}
+      page.should have_content 'not authorized'
+    end
 
-#     scenario 'by directly destroying' do
-#       # destroy
-#       page.should have_content 'Not authorized'
-#     end
-#   end
-# end
+    scenario 'by directly destroying' do
+      page.driver.submit :delete, user_path(@user), {}
+      page.should have_content 'not authorized'
+    end
+  end
+end

@@ -4,6 +4,9 @@
   <div class="large-offset-1 large-3 small-4 columns panel large-margin-top">
     <h3><%= @user.first_name %> <%= @user.last_name %></h3>
     <hr>
+    <% if can? :admin_destroy, @user %>
+      <%= button_to 'Delete account', { controller: :users, action: :destroy }, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
     <h5 class="subheader"><%= @user.karma %> karma</h5>
     <h6 class="subheader">Rank: <%= @user.rank %> of <%= User.all.length %></h6>
     <h6 class="subheader">GitHub: <%= link_to @user.github, "https://github.com/#{@user.github}", target: '_blank' %></h6>
