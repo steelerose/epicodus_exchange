@@ -34,72 +34,97 @@ feature 'view all users' do
   end
 end
 
-feature 'edit user profile' do
-  subject { page }
+# feature 'edit user profile' do
+#   subject { page }
 
-  before :each do
-    @user = create(:user)
-    sign_in @user
-    visit user_path @user
-    click_link 'Settings'
-  end
+#   before :each do
+#     @user = create(:user)
+#     sign_in @user
+#     visit user_path @user
+#     click_link 'Settings'
+#   end
 
-  # scenario 'with invalid information' do
-  #   fill_in 'user_first_name', with: ''
-  #   fill_in 'user_current_password', with: @user.password
-  #   click_button 'Update'
-  #   page.should have_content 'error'
-  # end
+#   scenario 'with invalid information' do
+#     fill_in 'user_first_name', with: ''
+#     fill_in 'user_current_password', with: @user.password
+#     click_button 'Update'
+#     page.should have_content 'error'
+#   end
 
-  scenario 'with wrong password' do
-    fill_in 'user_first_name', with: 'Newname'
-    fill_in 'user_current_password', with: 'notmypassword'
-    click_button 'Update'
-    page.should have_content 'error'
-  end
+#   scenario 'with valid information' do
+#     fill_in 'user_first_name', with: 'Newname'
+#     fill_in 'user_current_password', with: @user.password
+#     click_button 'Update'
+#     page.should have_content 'Newname'
+#   end
+# end
 
-  # scenario 'with valid information' do
-  #   fill_in 'user_first_name', with: 'Newname'
-  #   fill_in 'user_current_password', with: @user.password
-  #   click_button 'Update'
-  #   page.should have_content 'Newname'
-  # end
-end
-
-feature 'make admin' do
-  context 'as admin' do
+# feature 'make admin' do
+#   context 'as admin' do
     
-  end
+#   end
 
-  context 'as correct user' do
+#   context 'as correct user' do
     
-  end
+#   end
 
-  context 'as another user' do
+#   context 'as another user' do
     
-  end
+#   end
 
-  context 'without logging in`' do
+#   context 'without logging in`' do
     
-  end
-end
+#   end
+# end
 
-feature 'delete user' do
-  subject { page }
+# feature 'delete user' do
+#   subject { page }
 
-  before :each do
-    @user = create(:user)
-    sign_in @user
-    visit user_path @user
-    click_link 'Settings'
-  end
-  
-  context 'as admin' do
-    # should not be able to delete self unless there is another admin
-    # link should be on user profile page
-  end
+#   before :each do
+#     @user = create(:user)
+#   end
 
-  context 'as correct user' do
-    
-  end
-end
+#   context 'as admin' do
+#     before :each do
+#       @user2 = create(:user)
+#       @user2.update(admin: true)
+#       sign_in @user2
+#     end
+
+#     scenario 'deleting other user' do
+#       visit user_path @user
+#       click_button 'Delete account'
+#       page.should have_content 'User account deleted'
+#     end
+
+#     scenario 'deleting self (other admins exist)' do
+#       @user.update(admin: true)
+#       visit user_path @user2
+#       click_button 'Delete account'
+#       page.should have_content 'Your account has been deleted'
+#     end
+
+#     scenario 'deleting self (no other admins exist)' do
+#       visit user_path @user2
+#       click_button 'Delete account'
+#       page.should have_content 'Please assign a new admin before deleting your account'
+#     end
+#   end
+
+#   context 'as non-admin' do
+#     before :each do
+#       sign_in @user
+#       visit user_path @user
+#     end
+
+#     scenario 'by visiting path' do
+#       # visit delete path
+#       page.should have_content 'Not authorized'
+#     end
+
+#     scenario 'by directly destroying' do
+#       # destroy
+#       page.should have_content 'Not authorized'
+#     end
+#   end
+# end

@@ -2,9 +2,9 @@
 
 Q&A forum for Epicodus students
 
-Created by [Julie Steele](http://juliesteele.site44.com/).
+Created by [Julie Steele](https://github.com/steelerose).
 
---------------------------------------------------------------
+------------
 
 To run:
 
@@ -17,13 +17,16 @@ In the terminal
 In your browser
 - visit 'localhost:3000'
 
----------------------------------------------------------------
+------------
 
 
 ADD
 - mark answer as correct
 - create announcements
-- 
+- if admin, profile page has 'Make admin' button
+- if admin, profile page has 'Delete account' button
+- can show only answered/unanswered/all posts
+- add user types: prospective student, class of __ or student/alum, etc
 
 
 FIX
