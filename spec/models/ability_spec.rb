@@ -6,7 +6,10 @@ describe Ability do
   describe 'when admin' do
     let(:user) { create(:user, admin: true) }
 
-    it { should be_able_to(:manage, Post.new, Answer.new, Comment.new, Vote.new) }
+    it { should be_able_to(:read, Post.new, Answer.new, Comment.new, Vote.new) }
+    it { should be_able_to(:create, Post.new, Answer.new, Comment.new, Vote.new) }
+    it { should be_able_to(:update, Post.new, Answer.new, Comment.new, Vote.new) }
+    it { should be_able_to(:destroy, Post.new, Answer.new, Comment.new, Vote.new) }
   end
 
   describe 'when non-admin user' do

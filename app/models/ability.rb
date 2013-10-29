@@ -5,7 +5,10 @@ class Ability
     user ||= User.new
 
     if user.admin?
-      can :manage, :all
+      can :read, :all
+      can :create, :all
+      can :update, :all
+      can :destroy, :all
     elsif !user.id.nil?
       can :read, :all
       can :create, :all
