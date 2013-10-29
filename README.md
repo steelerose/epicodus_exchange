@@ -18,3 +18,13 @@ In your browser
 - visit 'localhost:3000'
 
 ---------------------------------------------------------------
+
+
+ADD
+- mark answer as correct
+- create announcements
+- 
+
+
+FIX
+- new/edit answer should be AJAX

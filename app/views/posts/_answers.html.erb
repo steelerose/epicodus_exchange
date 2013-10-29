@@ -22,7 +22,7 @@
               %>
               </p>
             </div>
-            <h6 class="subheader lesser-size extra-margin-top extra-margin-bottom ">
+            <h6 class="subheader lesser-size extra-margin-top extra-margin-bottom answer-options">
               <%= link_to "#{answer.user.first_name} #{answer.user.last_name}", user_path(answer.user), target: '_blank' %>
                | <%= answer.created_at.strftime("%-d %b '%y") %>
                | <%= pluralize(answer.votes.count, "vote") %>

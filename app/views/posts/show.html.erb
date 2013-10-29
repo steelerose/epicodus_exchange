@@ -9,7 +9,7 @@
   </div>
 
   <div class="large-offset-1 large-8 small-8 columns">
-    <h6 class="subheader extra-margin-bottom extra-margin-top">
+    <h6 class="subheader extra-margin-bottom extra-margin-top post-options">
       <%= link_to "#{@post.user.first_name} #{@post.user.last_name}", user_path(@post.user), target: '_blank' %>
        | <%= @post.created_at.strftime("%-d %b '%y") %>
        | <%= pluralize(@post.votes.count, 'vote') %>
