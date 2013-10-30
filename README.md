@@ -23,7 +23,6 @@ In your browser
 TO ADD
   ADMIN
   - can create announcement (type of post)
-  - profile page has 'Make admin' button
   - can mark answer as correct
   POST INDEX
   - can show only answered/unanswered/all
@@ -36,6 +35,7 @@ TO FIX
   USER
   - validate fields when updating (name can't be blank, etc)
   - successful edit redirects to profile page
+  - prettify 'Make admin' and 'Delete account' buttons
   NAVBAR
   - dropdown menu needs to work (switch site to Bootstrap?)
   GENERAL
