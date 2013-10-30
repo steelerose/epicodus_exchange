@@ -24,7 +24,6 @@ TO ADD
   ADMIN
   - can create announcement (type of post)
   - profile page has 'Make admin' button
-  - profile page has 'Delete account' button
   - can mark answer as correct
   POST INDEX
   - can show only answered/unanswered/all

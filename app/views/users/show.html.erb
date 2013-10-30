@@ -4,6 +4,9 @@
   <div class="large-offset-1 large-3 small-4 columns panel large-margin-top">
     <h3><%= @user.first_name %> <%= @user.last_name %></h3>
     <hr>
+    <% if can? :make_admin, @user %>
+      <%= button_to 'Make admin', { controller: :admins, action: :create, user_id: @user.id, user: { admin: true } }, data: { confirm: 'Are you sure?' } %>
+    <% end %>
     <% if can? :admin_destroy, @user %>
       <%= button_to 'Delete account', { controller: :users, action: :destroy }, method: :delete, data: { confirm: 'Are you sure?' } %>
     <% end %>

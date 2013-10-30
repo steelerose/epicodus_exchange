@@ -30,6 +30,10 @@ class Ability
     can :upvote, Answer do |answer|
       !user.id.nil? && user != answer.user && !user.voted_on(answer)
     end
+
+    can :make_admin, User do |subject|
+      user.admin? && !subject.admin?
+    end
   end
 end
 

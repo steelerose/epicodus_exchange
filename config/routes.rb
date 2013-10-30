@@ -6,6 +6,7 @@ EpicodusExchange::Application.routes.draw do
   resources 'answers', except: [:index, :show]
   resources 'comments', only: [:new, :create, :destroy]
   resources 'users', only: [:index, :show, :destroy]
+  resources 'admins', only: [:create]
 
   root 'posts#index'
 

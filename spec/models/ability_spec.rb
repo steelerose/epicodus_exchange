@@ -11,6 +11,7 @@ describe Ability do
     it { should be_able_to(:update, Post.new, Answer.new, Comment.new, Vote.new) }
     it { should be_able_to(:destroy, Post.new, Answer.new, Comment.new, Vote.new) }
     it { should be_able_to(:admin_destroy, User.new) }
+    it { should be_able_to(:make_admin, User.new) }
   end
 
   describe 'when non-admin user' do
